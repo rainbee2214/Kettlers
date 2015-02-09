@@ -1,0 +1,29 @@
+Kettle Cook Factory
+Ingredients: potatoes, sunflower oil, salt, onion, cheese 
+A chip factory is built with $$. It takes 2-5 inputs, depending on the factory type
+Factory Types:
+{
+	2 inputs, 3 inputs, 4 inputs, 5 inputs, any inputs(will produce the best it can)
+}
+Chip flavour preferences for world population are randomized each game. New city to please each game (random names)
+
+Grid space: can place a factory, a farm, or a salt mine
+Can purchase more land to build more things
+
+
+Attributes:
+currentPotatoCount, currentSunflowerOilCount, currentSaltCount, currentOnionCount, currentCheeseCount
+currentChipCount
+
+Flavour Combinations : 8 total
+{
+	potatoes + sunflower oil + :
+	: plain
+	+ salt : salted
+	+ onion : onion flavour
+	+ cheese : cheesy
+	+ salt + onion 
+	+ salt + cheese
+	+ onion + cheese
+	+ salt + onion + cheese 
+}
