@@ -27,3 +27,5 @@ Flavour Combinations : 8 total
 	+ onion + cheese
 	+ salt + onion + cheese 
 }
+
+Each grid space can contain a building of some kind. Initally, there are 3 x 3 grid spaces

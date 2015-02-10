@@ -5,25 +5,28 @@ using System.Collections.Generic;
 public class GridSpace : MonoBehaviour
 {
     public static GridSpace gridSpace;
-    public GameObject gridSpacePrefab;
 
-    int width = GameController.width, height = GameController.height;
+    public int width = GameController.width, height = GameController.height;
     public List<Space> gridSpaces;
-
+    public Vector2 test;
     List<GameObject> gridSpacePrefabs;
     int lastWidth, lastHeight, lastIndex;
 
+    Vector2 initialOffset;
+
     void Awake()
     {
+        initialOffset = transform.position;
         BuildGrid();
     }
 
     void Update()
     {
-        if (lastWidth != width || lastHeight != height)
+        if (lastWidth < width || lastHeight < height)
         {
+            if (lastWidth != width) Debug.Log(lastWidth + " : Width: " + width);
+            if (lastHeight != height) Debug.Log(lastHeight + " : Height: " + height);
             BuildGrid();
-            Debug.Log("Rebuilding grid.");
         }
     }
     void BuildGrid()
@@ -31,28 +34,32 @@ public class GridSpace : MonoBehaviour
         if (gridSpaces == null)
         {
             gridSpaces = new List<Space>();
-            gridSpacePrefabs = new List<GameObject>();
+            int count = 0;
             for (int x = 0; x < width; x++)
             {
                 for (int y = 0; y < height; y++)
                 {
-                    gridSpaces.Add(new Space(new Vector2(x, y), false));
+                    //Vector2 coordinate = new Vector2(x + initialOffset.x, y + initialOffset.y);
+                    //gridSpaces.Add(new Space(coordinate, false));
+                    gridSpaces.Add(new Space(new Vector2(x, y) + initialOffset, false));
+                    Debug.Log(gridSpaces[count].index  + " " + initialOffset);
+                    count++;
                 }
             }
-            foreach (Space s in gridSpaces)
-            {
-                //Debug.Log(s.ToString());
-                gridSpacePrefabs.Add(Instantiate(gridSpacePrefab, s.index, Quaternion.identity) as GameObject);
-            }
-            foreach (GameObject space in gridSpacePrefabs)
-            {
-                space.transform.parent = transform;
-            }
-
             lastWidth = width;
             lastHeight = height;
             lastIndex = gridSpaces.Count - 1;
         }
+        
+    }
+
+    int FindSpace(Vector2 coordinate)
+    {
+        for (int i = 0; i < gridSpaces.Count; i++)
+        {
+            if ((int)coordinate.x == (int)gridSpaces[i].index.x && (int)coordinate.y == (int)gridSpaces[i].index.y) return i;
+        }
+        return -1;
     }
 
 
