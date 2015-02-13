@@ -3,23 +3,37 @@ using System.Collections;
 
 public class TimeController : MonoBehaviour
 {
+    public static TimeController timeController;
+
     public float timeScale = 1f;
     public int startingHour = 8;
     public bool tick;
+    public bool reset;
 
     float nextTickTime;
     int currentSeconds, currentMinutes, currentHours;
     int dayCount;
 
-    void Update()
+    void Awake()
+    {
+        timeController = this;
+    }
+    void FixedUpdate()
     {
         if (tick && Time.time > nextTickTime) Tick();
+        if (reset) Reset();
+    }
+
+    void Reset()
+    {
+        reset = false;
+        currentHours = 0;
+        currentMinutes = 0;
+        currentSeconds = 0;
     }
 
     public void Tick()
     {
-        Debug.Log(ToString());
-        //tick = false;
         currentSeconds++;
         if (currentSeconds >= 60) TickMinutes();
         nextTickTime = Time.time + timeScale;
@@ -41,9 +55,23 @@ public class TimeController : MonoBehaviour
 
     public override string ToString()
     {
-        string time = ((currentHours+startingHour) < 10 ? "0" : "") + (currentHours + startingHour) + ":" +
-        (currentMinutes < 10 ? "0" : "") + currentMinutes + ":" +
-        (currentSeconds < 10 ? "0" : "") + currentSeconds;
+        string time = ((currentHours + startingHour) < 10 ? "0" : "") + (currentHours + startingHour) + ":" +
+        (currentMinutes < 10 ? "0" : "") + currentMinutes;
         return time;
+    }
+
+    public string GetTime()
+    {
+        return ToString();
+    }
+
+    public void UnPause()
+    {
+        tick = true;
+    }
+
+    public void Pause()
+    {
+        tick = false;
     }
 }
