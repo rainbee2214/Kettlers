@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 
 [ExecuteInEditMode]
+[RequireComponent(typeof(Text))]
 public class PlaceUI : MonoBehaviour
 {
     [Range(0f, 1f)]
@@ -20,8 +21,8 @@ public class PlaceUI : MonoBehaviour
 
     void Update()
     {
-        if (screenHeight != Screen.height || screenWidth != Screen.width
-            || widthPercentage != lastWP || heightPercentage != lastHP) PositionUI();
+        if (text != null && (screenHeight != Screen.height || screenWidth != Screen.width
+              || widthPercentage != lastWP || heightPercentage != lastHP)) PositionUI();
     }
 
     void PositionUI()
