@@ -5,7 +5,7 @@ public class TimeController : MonoBehaviour
 {
     public static TimeController timeController;
 
-    [Range(1,100)]
+    [Range(1, 100)]
     public int timeSpeed = 1;
     public float timeScale = 1f;
     public int startingHour = 8;
@@ -32,10 +32,10 @@ public class TimeController : MonoBehaviour
     {
         if (tick && Time.time > nextTickTime)
         {
-            for (int i = 0; i < timeSpeed; i++ )
-            {
-                Tick();
-            }
+            //for (int i = 0; i < timeSpeed; i++ )
+            //{
+            Tick();
+            //}
         }
         if (reset) Reset();
     }
@@ -51,8 +51,12 @@ public class TimeController : MonoBehaviour
 
     public void Tick()
     {
-        currentSeconds++;
-        if (currentSeconds >= 60) TickMinutes();
+        Debug.Log("tick");
+        for (int i = 0; i < timeSpeed; i++)
+        {
+            currentSeconds++;
+            if (currentSeconds >= 60) TickMinutes();
+        }
         nextTickTime = Time.time + timeScale;
     }
 
