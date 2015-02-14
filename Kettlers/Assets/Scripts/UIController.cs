@@ -4,17 +4,12 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
-    public Text text;
+    public Text clockText;
     public Text dayCount;
-    public Text actionButtonText;
 
-    void Update()
+    void FixedUpdate()
     {
-        text.text = TimeController.timeController.GetTime();
-    }
-
-    public void SetActionButtonText(string buttonText)
-    {
-        actionButtonText.text = buttonText;
+        if (clockText != null) clockText.text = TimeController.timeController.GetTime();
+        if (dayCount != null) dayCount.text = "Day: " + (((int)GameController.controller.DayCount < 10) ? "0" : "") + GameController.controller.DayCount;
     }
 }

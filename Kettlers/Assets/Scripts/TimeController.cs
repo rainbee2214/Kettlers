@@ -5,6 +5,8 @@ public class TimeController : MonoBehaviour
 {
     public static TimeController timeController;
 
+    [Range(1,100)]
+    public int timeSpeed = 1;
     public float timeScale = 1f;
     public int startingHour = 8;
     public bool tick;
@@ -16,20 +18,35 @@ public class TimeController : MonoBehaviour
 
     void Awake()
     {
-        timeController = this;
+        if (timeController == null)
+        {
+            timeController = this;
+        }
+        else if (timeController != this)
+        {
+            Destroy(gameObject);
+        }
     }
+
     void FixedUpdate()
     {
-        if (tick && Time.time > nextTickTime) Tick();
+        if (tick && Time.time > nextTickTime)
+        {
+            for (int i = 0; i < timeSpeed; i++ )
+            {
+                Tick();
+            }
+        }
         if (reset) Reset();
     }
 
-    void Reset()
+    public void Reset()
     {
         reset = false;
         currentHours = 0;
         currentMinutes = 0;
         currentSeconds = 0;
+        tick = false;
     }
 
     public void Tick()
@@ -50,7 +67,13 @@ public class TimeController : MonoBehaviour
     {
         currentMinutes = 0;
         currentHours++;
-        if (currentHours >= 12) currentHours = startingHour;
+        if (currentHours >= 12)
+        {
+            Pause();
+            Reset();
+            Application.LoadLevel("Between");
+            GameController.controller.DayCount = 1;
+        }
     }
 
     public override string ToString()
@@ -73,5 +96,10 @@ public class TimeController : MonoBehaviour
     public void Pause()
     {
         tick = false;
+    }
+
+    public bool IsPaused()
+    {
+        return !tick;
     }
 }

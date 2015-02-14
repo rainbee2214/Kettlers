@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(TimeController))]
+[RequireComponent(typeof(UIController))]
 public class GameController : MonoBehaviour
 {
     public static GameController controller;
@@ -8,6 +10,13 @@ public class GameController : MonoBehaviour
     public const int height = 3;
 
     #region Properties
+    int dayCount = 1;
+    public int DayCount
+    {
+        get { return dayCount; }
+        set { dayCount += value; }
+    }
+
     int currentPotatoCount = 0;
     public int CurrentPotatoCount
     {
@@ -47,7 +56,35 @@ public class GameController : MonoBehaviour
     public int CurrentChipCount
     {
         get { return currentChipCount; }
-        set { currentChipCount += value; }
+        set 
+        { 
+            currentChipCount += value;
+            if (currentChipCount <= 0) currentChipCount = 0;
+        }
     }  
     #endregion
+
+    void Awake()
+    {
+        if (controller == null)
+        {
+            DontDestroyOnLoad(gameObject);
+            controller = this;
+        }
+        else if (controller != this)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    void Update()
+    {
+        if (TimeController.timeController.IsPaused() && Application.loadedLevelName == "Level") TimeController.timeController.UnPause();
+        else if (Application.loadedLevelName != "Level") TimeController.timeController.Reset();
+    }
+
+    public string GetTime()
+    {
+        return TimeController.timeController.GetTime();
+    }
 }
