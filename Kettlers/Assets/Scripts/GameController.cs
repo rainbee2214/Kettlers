@@ -9,6 +9,8 @@ public class GameController : MonoBehaviour
     public const int width = 5;
     public const int height = 3;
 
+    UIController uiController;
+
     #region Properties
     int dayCount = 1;
     public int DayCount
@@ -61,7 +63,19 @@ public class GameController : MonoBehaviour
             currentChipCount += value;
             if (currentChipCount <= 0) currentChipCount = 0;
         }
+    }
+
+    int totalChipCount = 0;
+    public int TotalChipCount
+    {
+        get { return totalChipCount; }
+        set
+        {
+            totalChipCount += value;
+            if (totalChipCount <= 0) totalChipCount = 0;
+        }
     }  
+
     #endregion
 
     void Awake()
@@ -75,12 +89,22 @@ public class GameController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        uiController = GetComponent<UIController>();
     }
 
     void Update()
     {
-        if (TimeController.timeController.IsPaused() && Application.loadedLevelName == "Level") TimeController.timeController.UnPause();
-        else if (Application.loadedLevelName != "Level") TimeController.timeController.Reset();
+        if (TimeController.timeController.IsPaused() && Application.loadedLevelName == "Level")
+        {
+            TimeController.timeController.UnPause();
+            uiController.TurnOn();    
+        }
+        else if (Application.loadedLevelName != "Level")
+        {
+            TimeController.timeController.Reset();
+            uiController.TurnOff();
+        }
     }
 
     public string GetTime()
