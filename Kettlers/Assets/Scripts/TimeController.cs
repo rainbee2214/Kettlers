@@ -32,10 +32,7 @@ public class TimeController : MonoBehaviour
     {
         if (tick && Time.time > nextTickTime)
         {
-            //for (int i = 0; i < timeSpeed; i++ )
-            //{
             Tick();
-            //}
         }
         if (reset) Reset();
     }
@@ -51,7 +48,6 @@ public class TimeController : MonoBehaviour
 
     public void Tick()
     {
-        Debug.Log("tick");
         for (int i = 0; i < timeSpeed; i++)
         {
             currentSeconds++;
