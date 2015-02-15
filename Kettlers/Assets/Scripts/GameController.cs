@@ -9,6 +9,12 @@ public class GameController : MonoBehaviour
     public const int width = 5;
     public const int height = 3;
 
+    public float kettlerFactoryCost = 500f,
+                    potatoFarmCost = 200f,
+                    sunflowerFarmCost = 350f,
+                    saltMineCost = 600f,
+                    onionFarmCost = 300f,
+                    cheeseFactoryCost = 950f;
     UIController uiController;
 
     #region Properties
@@ -36,8 +42,8 @@ public class GameController : MonoBehaviour
     int currentPotatoCount = 0;
     public int CurrentPotatoCount
     {
-        get { return currentPotatoCount;}
-        set { currentPotatoCount += value;}
+        get { return currentPotatoCount; }
+        set { currentPotatoCount += value; }
     }
 
     int currentSunflowerOilCount = 0;
@@ -72,8 +78,8 @@ public class GameController : MonoBehaviour
     public int CurrentChipCount
     {
         get { return currentChipCount; }
-        set 
-        { 
+        set
+        {
             currentChipCount += value;
             if (currentChipCount <= 0) currentChipCount = 0;
         }
@@ -88,7 +94,7 @@ public class GameController : MonoBehaviour
             totalChipCount += value;
             if (totalChipCount <= 0) totalChipCount = 0;
         }
-    }  
+    }
 
     #endregion
 
@@ -112,7 +118,7 @@ public class GameController : MonoBehaviour
         if (TimeController.timeController.IsPaused() && Application.loadedLevelName == "Level")
         {
             TimeController.timeController.UnPause();
-            uiController.TurnOn();    
+            uiController.TurnOn();
         }
         else if (Application.loadedLevelName != "Level")
         {
@@ -128,8 +134,16 @@ public class GameController : MonoBehaviour
 
     public void PurchaseItem(float price, string name = "")
     {
-        currentMoney -= price;
-        if (currentMoney < 0) currentMoney = 0;
+        if (price > currentMoney)
+        {
+            uiController.DisplayError("Can't buy that, you're too poor!", 3f);
+            Debug.Log("Can't buy that, you're too poor!");
+        }
+        else
+        {
+            currentMoney -= price;
+            if (currentMoney < 0) currentMoney = 0;
+        }
     }
 
     public void SellItem(float price, string name = "")

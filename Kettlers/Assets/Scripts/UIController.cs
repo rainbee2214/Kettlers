@@ -16,6 +16,17 @@ public class UIController : MonoBehaviour
     public Text totalChipCount;
     public Text currentMoney;
     public Text name;
+
+    public Text kettlersCost;
+    public Text potatoCost;
+    public Text sunflowerCost;
+    public Text saltCost;
+    public Text onionCost;
+    public Text cheeseCost;
+
+    public Text errorMessage;
+    ErrorMessage em;
+
     public bool turnOff = false;
 
     void FixedUpdate()
@@ -35,6 +46,12 @@ public class UIController : MonoBehaviour
             if (currentMoney != null) currentMoney.text = "Money: $" + GameController.controller.CurrentMoney;
             if (name != null) name.text = "Name: " + GameController.controller.CurrentName;
 
+            if (kettlersCost != null) kettlersCost.text = "$" + GameController.controller.kettlerFactoryCost;
+            if (potatoCost != null) potatoCost.text = "$" + GameController.controller.potatoFarmCost;
+            if (sunflowerCost != null) sunflowerCost.text = "$" + GameController.controller.sunflowerFarmCost;
+            if (saltCost != null) saltCost.text = "$" + GameController.controller.saltMineCost;
+            if (onionCost != null) onionCost.text = "$" + GameController.controller.onionFarmCost;
+            if (cheeseCost != null) cheeseCost.text = "$" + GameController.controller.cheeseFactoryCost;
         }
         else
         {
@@ -50,9 +67,21 @@ public class UIController : MonoBehaviour
             if (totalChipCount != null) totalChipCount.text = "";
             if (currentMoney != null) currentMoney.text = "";
             if (name != null) name.text = "";
+
+            if (kettlersCost != null) kettlersCost.text = "";
+            if (potatoCost != null) potatoCost.text = "";
+            if (sunflowerCost != null) sunflowerCost.text = "";
+            if (saltCost != null) saltCost.text = "";
+            if (onionCost != null) onionCost.text = "";
+            if (cheeseCost != null) cheeseCost.text = "";
         }
     }
 
+    public void DisplayError(string message = " ... ", float duration = 2f)
+    {
+        if (em == null) em = errorMessage.GetComponent<ErrorMessage>();
+        em.DisplayMessage(message, duration);
+    }
     public void TurnOn()
     {
         turnOff = false;
@@ -61,5 +90,48 @@ public class UIController : MonoBehaviour
     public void TurnOff()
     {
         turnOff = true;
+    }
+
+    void Buy(string name)
+    {
+        switch(name)
+        {
+            case "Kettler": GameController.controller.PurchaseItem(GameController.controller.kettlerFactoryCost); break;
+            case "Potato": GameController.controller.PurchaseItem(GameController.controller.potatoFarmCost); break;
+            case "Sunflower": GameController.controller.PurchaseItem(GameController.controller.sunflowerFarmCost); break;
+            case "Salt": GameController.controller.PurchaseItem(GameController.controller.saltMineCost); break;
+            case "Onion": GameController.controller.PurchaseItem(GameController.controller.onionFarmCost); break;
+            case "Cheese": GameController.controller.PurchaseItem(GameController.controller.cheeseFactoryCost); break;
+        }
+        
+    }
+    public void BuyKettlerFactory()
+    {
+        Buy("Kettler");
+    }
+    
+    public void BuyPotatoFarm()
+    {
+        Buy("Potato");
+    }
+    
+    public void BuySunflowerFarm()
+    {
+        Buy("Sunflower");
+    }
+
+    public void BuySaltMine()
+    {
+        Buy("Salt");
+    }
+    
+    public void BuyOnionFarm()
+    {
+        Buy("Onion");
+    }
+    
+    public void BuyCheeseFactory()
+    {
+        Buy("Cheese");
     }
 }
