@@ -65,6 +65,7 @@ public class TimeController : MonoBehaviour
 
     void TickHours()
     {
+        GameController.controller.IncrementResources();
         currentMinutes = 0;
         currentHours++;
         if (currentHours >= 12)

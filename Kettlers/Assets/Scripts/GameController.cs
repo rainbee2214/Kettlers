@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(TimeController))]
 [RequireComponent(typeof(UIController))]
@@ -16,6 +17,10 @@ public class GameController : MonoBehaviour
                     onionFarmCost = 300f,
                     cheeseFactoryCost = 950f;
     UIController uiController;
+
+    public GameObject potatoResource;
+
+    public List<GameObject> resources;
 
     #region Properties
     string currentName = "Sarah";
@@ -111,6 +116,7 @@ public class GameController : MonoBehaviour
         }
 
         uiController = GetComponent<UIController>();
+        resources = new List<GameObject>();
     }
 
     void Update()
@@ -127,12 +133,21 @@ public class GameController : MonoBehaviour
         }
     }
 
+    public void IncrementResources()
+    {
+        foreach (GameObject resource in resources)
+        {
+            PotatoFarm pf = resource.GetComponent<PotatoFarm>();
+            pf.IncrementResourceCount();
+        }
+    }
+
     public string GetTime()
     {
         return TimeController.timeController.GetTime();
     }
 
-    public void PurchaseItem(float price, string name = "")
+    public void PurchaseItem(float price, Resource.Type resourceType)
     {
         if (price > currentMoney)
         {
@@ -141,6 +156,8 @@ public class GameController : MonoBehaviour
         }
         else
         {
+            resources.Add(Instantiate(potatoResource) as GameObject);
+            resources[resources.Count - 1].transform.SetParent(transform.GetChild(0).transform);
             currentMoney -= price;
             if (currentMoney < 0) currentMoney = 0;
         }

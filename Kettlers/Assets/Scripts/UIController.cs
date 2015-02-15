@@ -96,12 +96,12 @@ public class UIController : MonoBehaviour
     {
         switch(name)
         {
-            case "Kettler": GameController.controller.PurchaseItem(GameController.controller.kettlerFactoryCost); break;
-            case "Potato": GameController.controller.PurchaseItem(GameController.controller.potatoFarmCost); break;
-            case "Sunflower": GameController.controller.PurchaseItem(GameController.controller.sunflowerFarmCost); break;
-            case "Salt": GameController.controller.PurchaseItem(GameController.controller.saltMineCost); break;
-            case "Onion": GameController.controller.PurchaseItem(GameController.controller.onionFarmCost); break;
-            case "Cheese": GameController.controller.PurchaseItem(GameController.controller.cheeseFactoryCost); break;
+            case "Kettler": GameController.controller.PurchaseItem(GameController.controller.kettlerFactoryCost, Resource.Type.KettlerFactory); break;
+            case "Potato": GameController.controller.PurchaseItem(GameController.controller.potatoFarmCost, Resource.Type.Potato); break;
+            case "Sunflower": GameController.controller.PurchaseItem(GameController.controller.sunflowerFarmCost, Resource.Type.SunflowerOil); break;
+            case "Salt": GameController.controller.PurchaseItem(GameController.controller.saltMineCost, Resource.Type.Salt); break;
+            case "Onion": GameController.controller.PurchaseItem(GameController.controller.onionFarmCost, Resource.Type.Onion); break;
+            case "Cheese": GameController.controller.PurchaseItem(GameController.controller.cheeseFactoryCost, Resource.Type.Cheese); break;
         }
         
     }
