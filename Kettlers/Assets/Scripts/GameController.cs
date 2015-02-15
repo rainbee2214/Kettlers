@@ -12,6 +12,20 @@ public class GameController : MonoBehaviour
     UIController uiController;
 
     #region Properties
+    string currentName = "Sarah";
+    public string CurrentName
+    {
+        get { return currentName; }
+        set { currentName = value; }
+    }
+
+    float currentMoney = 1000.00f;
+    public float CurrentMoney
+    {
+        get { return currentMoney; }
+        set { currentMoney += value; }
+    }
+
     int dayCount = 1;
     public int DayCount
     {
@@ -110,5 +124,16 @@ public class GameController : MonoBehaviour
     public string GetTime()
     {
         return TimeController.timeController.GetTime();
+    }
+
+    public void PurchaseItem(float price, string name = "")
+    {
+        currentMoney -= price;
+        if (currentMoney < 0) currentMoney = 0;
+    }
+
+    public void SellItem(float price, string name = "")
+    {
+        currentMoney += price;
     }
 }

@@ -14,7 +14,8 @@ public class UIController : MonoBehaviour
     public Text cheeseCount;
     public Text currentChipCount;
     public Text totalChipCount;
-
+    public Text currentMoney;
+    public Text name;
     public bool turnOff = false;
 
     void FixedUpdate()
@@ -31,6 +32,8 @@ public class UIController : MonoBehaviour
             if (cheeseCount != null) cheeseCount.text = "Cheese: " + (GameController.controller.CurrentCheeseCount < 10 ? "0" : "") + GameController.controller.CurrentCheeseCount;
             if (currentChipCount != null) currentChipCount.text = "Current Chips: " + (GameController.controller.CurrentChipCount < 10 ? "0" : "") + GameController.controller.CurrentChipCount;
             if (totalChipCount != null) totalChipCount.text = "Total Chips: " + (GameController.controller.TotalChipCount < 10 ? "0" : "") + GameController.controller.TotalChipCount;
+            if (currentMoney != null) currentMoney.text = "Money: $" + GameController.controller.CurrentMoney;
+            if (name != null) name.text = "Name: " + GameController.controller.CurrentName;
 
         }
         else
@@ -45,6 +48,8 @@ public class UIController : MonoBehaviour
             if (cheeseCount != null) cheeseCount.text = "";
             if (currentChipCount != null) currentChipCount.text = "";
             if (totalChipCount != null) totalChipCount.text = "";
+            if (currentMoney != null) currentMoney.text = "";
+            if (name != null) name.text = "";
         }
     }
 
