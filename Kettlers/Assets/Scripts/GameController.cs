@@ -146,8 +146,45 @@ public class GameController : MonoBehaviour
     {
         foreach (GameObject resource in resources)
         {
-            PotatoFarm pf = resource.GetComponent<PotatoFarm>();
-            pf.IncrementResourceCount();
+            switch (resource.name)
+            {
+                default:
+                case "KettlerFactory":
+                    {
+                        break;
+                    }
+                case "PotatoFarm":
+                    {
+                        PotatoFarm pf = resource.GetComponent<PotatoFarm>();
+                        pf.IncrementResourceCount();
+                        break;
+                    }
+                case "SunflowerFarm":
+                    {
+                        SunflowerFarm sf = resource.GetComponent<SunflowerFarm>();
+                        sf.IncrementResourceCount();
+                        break;
+                    }
+                case "SaltMine":
+                    {
+                        SaltMine pf = resource.GetComponent<SaltMine>();
+                        pf.IncrementResourceCount();
+                        break;
+                    }
+                case "OnionFarm":
+                    {
+                        OnionFarm pf = resource.GetComponent<OnionFarm>();
+                        pf.IncrementResourceCount();
+                        break;
+                    }
+                case "CheeseFactory":
+                    {
+                        CheeseFactory pf = resource.GetComponent<CheeseFactory>();
+                        pf.IncrementResourceCount();
+                        break;
+                    }
+            }
+
         }
     }
 
