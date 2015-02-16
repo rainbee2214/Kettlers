@@ -18,9 +18,14 @@ public class GameController : MonoBehaviour
                     cheeseFactoryCost = 950f;
     UIController uiController;
 
+    public GameObject kettlerResource;
     public GameObject potatoResource;
+    public GameObject sunflowerResource;
+    public GameObject saltResource;
+    public GameObject onionResource;
+    public GameObject cheeseResource;
 
-    public List<GameObject> resources;
+    List<GameObject> resources;
 
     #region Properties
     string currentName = "Sarah";
@@ -121,6 +126,11 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
+        ManageGame();
+    }
+
+    void ManageGame()
+    {
         if (TimeController.timeController.IsPaused() && Application.loadedLevelName == "Level")
         {
             TimeController.timeController.UnPause();
@@ -132,7 +142,6 @@ public class GameController : MonoBehaviour
             uiController.TurnOff();
         }
     }
-
     public void IncrementResources()
     {
         foreach (GameObject resource in resources)
@@ -156,7 +165,9 @@ public class GameController : MonoBehaviour
         }
         else
         {
-            resources.Add(Instantiate(potatoResource) as GameObject);
+            resources.Add(MakeResource(resourceType));
+            //Debug.Log(resources.Count + "  " + resources[resources.Count -1].ToString());
+            resources[resources.Count - 1].name = GetResourceName(resourceType);
             resources[resources.Count - 1].transform.SetParent(transform.GetChild(0).transform);
             currentMoney -= price;
             if (currentMoney < 0) currentMoney = 0;
@@ -166,5 +177,39 @@ public class GameController : MonoBehaviour
     public void SellItem(float price, string name = "")
     {
         currentMoney += price;
+    }
+
+    GameObject MakeResource(Resource.Type resourceType)
+    {
+        GameObject resource;
+
+        switch (resourceType)
+        {
+            default:
+            case Resource.Type.KettlerFactory: resource = Instantiate(kettlerResource) as GameObject; break;
+            case Resource.Type.Potato: resource = Instantiate(potatoResource) as GameObject; break;
+            case Resource.Type.SunflowerOil: resource = Instantiate(sunflowerResource) as GameObject; break;
+            case Resource.Type.Salt: resource = Instantiate(saltResource) as GameObject; break;
+            case Resource.Type.Onion: resource = Instantiate(onionResource) as GameObject; break;
+            case Resource.Type.Cheese: resource = Instantiate(cheeseResource) as GameObject; break;
+        }
+        return resource;
+    }
+
+    string GetResourceName(Resource.Type resourceType)
+    {
+        string rName;
+
+        switch (resourceType)
+        {
+            default:
+            case Resource.Type.KettlerFactory: rName = "KettlerFactory"; break;
+            case Resource.Type.Potato: rName = "PotatoFarm"; break;
+            case Resource.Type.SunflowerOil: rName = "SunflowerFarm"; break;
+            case Resource.Type.Salt: rName = "SaltMine"; break;
+            case Resource.Type.Onion: rName = "OnionFarm"; break;
+            case Resource.Type.Cheese: rName = "CheeseFactory"; break;
+        }
+        return rName;
     }
 }
