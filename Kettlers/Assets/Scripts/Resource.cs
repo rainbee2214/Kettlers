@@ -5,7 +5,7 @@ public class Resource : MonoBehaviour
 {
     public int outputPerHour = 1;
     public float mulitplier = 1f;
-    public string name;
+    public string currentName;
     public Type resourceType;
     
     public enum Type

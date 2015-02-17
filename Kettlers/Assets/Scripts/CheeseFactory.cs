@@ -5,7 +5,7 @@ public class CheeseFactory : Resource
 {
     CheeseFactory()
     {
-        name = "Cheese Factory";
+        currentName = "Cheese Factory";
         outputPerHour = 1;
         resourceType = Type.Cheese;
     }

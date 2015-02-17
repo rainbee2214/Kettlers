@@ -2,7 +2,13 @@ fileFormatVersion: 2
 guid: d2acfa0a7dae0c54891236ba3fee2537
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - kettlerResource: {fileID: 134086, guid: fb772579a33c9f644adad4222e7aeef2, type: 2}
+  - potatoResource: {fileID: 196488, guid: 7df339677cdf1f54c982e96c60d8aa0c, type: 2}
+  - sunflowerResource: {fileID: 117206, guid: dc9a22471f442ad478c9e2e16533c74e, type: 2}
+  - saltResource: {fileID: 172332, guid: d50a82a54081fce4d9061d9dcfe9afb2, type: 2}
+  - onionResource: {fileID: 117064, guid: 51b7a934120fe5441999b6e282d586e2, type: 2}
+  - cheeseResource: {fileID: 124382, guid: 36f4c6f61fbccca4098aa6fb8c388b35, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

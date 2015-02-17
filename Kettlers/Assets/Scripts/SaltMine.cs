@@ -5,7 +5,7 @@ public class SaltMine : Resource
 {
     SaltMine()
     {
-        name = "Salt Mine";
+        currentName = "Salt Mine";
         outputPerHour = 3;
         resourceType = Type.Salt;
     }

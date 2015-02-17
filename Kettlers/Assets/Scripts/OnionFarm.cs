@@ -5,7 +5,7 @@ public class OnionFarm : Resource
 {
     OnionFarm()
     {
-        name = "Onion Farm";
+        currentName = "Onion Farm";
         outputPerHour = 2;
         resourceType = Type.Onion;
     }

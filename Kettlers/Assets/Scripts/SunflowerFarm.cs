@@ -5,7 +5,7 @@ public class SunflowerFarm : Resource
 {
     SunflowerFarm()
     {
-        name = "Sunflower Farm";
+        currentName = "Sunflower Farm";
         outputPerHour = 3;
         resourceType = Type.SunflowerOil;
     }
