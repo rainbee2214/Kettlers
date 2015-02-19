@@ -30,7 +30,6 @@ public class GridSpace : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("Gridspace is occupied: " + occupied + " and activated: " + activated);
         if (activated) image.color = activeColor;
         else image.color = inactiveColor;
     }
