@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(TimeController))]
 [RequireComponent(typeof(UIController))]
@@ -108,6 +110,8 @@ public class GameController : MonoBehaviour
 
     #endregion
 
+    bool itemPurchased;
+
     void Awake()
     {
         if (controller == null)
@@ -141,6 +145,22 @@ public class GameController : MonoBehaviour
             TimeController.timeController.Reset();
             uiController.TurnOff();
         }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            EventSystem eventSystem = EventSystem.current;
+            if (eventSystem.IsPointerOverGameObject())
+            {
+                Debug.Log("....");
+                RaycastHit hit = new RaycastHit();
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+                Debug.DrawRay(ray.origin, ray.direction, Color.red, 10f);
+                if (Physics.Raycast(ray, out hit))
+                    print(hit.collider.name);
+            }
+        }
+        //if (itemPurchased && Input.GetButtonDown("PlaceItem")) PlaceItem(resources.Count - 1);
     }
     public void IncrementResources()
     {
@@ -202,12 +222,26 @@ public class GameController : MonoBehaviour
         }
         else
         {
-            resources.Add(MakeResource(resourceType));
-            //Debug.Log(resources.Count + "  " + resources[resources.Count -1].ToString());
-            resources[resources.Count - 1].name = GetResourceName(resourceType);
-            resources[resources.Count - 1].transform.SetParent(transform.GetChild(0).transform);
             currentMoney -= price;
             if (currentMoney < 0) currentMoney = 0;
+            resources.Add(MakeResource(resourceType));
+            resources[resources.Count - 1].SetActive(false);
+            resources[resources.Count - 1].name = GetResourceName(resourceType);
+            resources[resources.Count - 1].transform.SetParent(transform.GetChild(0).transform);
+            itemPurchased = true;
+        }
+    }
+
+    void PlaceItem(int index)
+    {
+        //if the position clicked is active and unoccupied
+
+        Vector2 ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        RaycastHit2D hit = Physics2D.Raycast(ray, Vector2.zero);
+        if (hit.collider != null)
+        {
+            Debug.Log(hit.collider.name);
+            resources[index].SetActive(true);
         }
     }
 

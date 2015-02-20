@@ -34,6 +34,6 @@ public class GridSpace : MonoBehaviour
         else image.color = inactiveColor;
     }
 
-
+    
 }
 
