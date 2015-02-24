@@ -146,20 +146,6 @@ public class GameController : MonoBehaviour
             uiController.TurnOff();
         }
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            EventSystem eventSystem = EventSystem.current;
-            if (eventSystem.IsPointerOverGameObject())
-            {
-                Debug.Log("....");
-                RaycastHit hit = new RaycastHit();
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-                Debug.DrawRay(ray.origin, ray.direction, Color.red, 10f);
-                if (Physics.Raycast(ray, out hit))
-                    print(hit.collider.name);
-            }
-        }
         //if (itemPurchased && Input.GetButtonDown("PlaceItem")) PlaceItem(resources.Count - 1);
     }
     public void IncrementResources()
