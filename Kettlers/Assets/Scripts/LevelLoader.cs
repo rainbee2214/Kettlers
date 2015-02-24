@@ -3,8 +3,10 @@ using System.Collections;
 
 public class LevelLoader : MonoBehaviour
 {
-    public string level = "Test";
+    public string level = "Menu";
     public float delay = 1f;
+
+    public bool clickToLoad = false;
 
     void Start()
     {
@@ -13,8 +15,10 @@ public class LevelLoader : MonoBehaviour
 
     void Update()
     {
-        if (Time.time > delay) Application.LoadLevel(level);
+        if (clickToLoad && Input.GetButtonDown("Play")) LoadLevel(level);
+        if (!clickToLoad && Time.time > delay) LoadLevel(level);
     }
+
     public void LoadLevel(string levelName)
     {
         Application.LoadLevel(levelName);
