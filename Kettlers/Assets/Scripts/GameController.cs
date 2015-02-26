@@ -199,9 +199,9 @@ public class GameController : MonoBehaviour
         return TimeController.timeController.GetTime();
     }
 
-    public void DisplayError(string message, float duration)
+    public void DisplayError(string message, float duration, bool error = true)
     {
-        uiController.DisplayError(message, duration);
+        uiController.DisplayError(message, duration, error);
     }
 
     public void PurchaseItem(float price, Resource.Type resourceType)

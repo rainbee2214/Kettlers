@@ -21,9 +21,9 @@ public class ErrorMessage : MonoBehaviour
         else if (!displayingMessage) EmptyMessage();
     }
 
-    public void DisplayMessage(string message, float duration)
+    public void DisplayMessage(string message, float duration, bool error = true)
     {
-        errorText.text = "Error: " + message;
+        errorText.text = (error)?"Error: " : "" + message;
         displayingMessage = true;
         turnOffTime = Time.time + duration;
     }

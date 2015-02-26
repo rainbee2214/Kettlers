@@ -128,10 +128,10 @@ public class KettlerFactory : MonoBehaviour
                     case Resource.Type.Empty: break;
                 }
             }
-        GameController.controller.DisplayError("Chips++", 3f);
+        GameController.controller.DisplayError("Chips++", 3f, false);
 
         }
-        else GameController.controller.DisplayError("You can't afford chips!", 3f);
+        else GameController.controller.DisplayError("You can't afford chips!", 3f, false);
     }
 
     void SetInputs(string input1 = "Potato", string input2 = "SunflowerOil", string input3 = "", string input4 = "", string input5 = "")

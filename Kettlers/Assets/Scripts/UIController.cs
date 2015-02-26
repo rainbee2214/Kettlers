@@ -77,10 +77,10 @@ public class UIController : MonoBehaviour
         }
     }
 
-    public void DisplayError(string message = " ... ", float duration = 2f)
+    public void DisplayError(string message = " ... ", float duration = 2f, bool error = true)
     {
         if (em == null) em = errorMessage.GetComponent<ErrorMessage>();
-        em.DisplayMessage(message, duration);
+        em.DisplayMessage(message, duration, error);
     }
     public void TurnOn()
     {
