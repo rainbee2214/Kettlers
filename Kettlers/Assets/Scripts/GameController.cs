@@ -14,7 +14,7 @@ public class GameController : MonoBehaviour
 
     public float kettlerFactoryCost = 500f,
                     potatoFarmCost = 200f,
-                    sunflowerFarmCost = 350f,
+                    sunflowerFarmCost = 300f,
                     saltMineCost = 600f,
                     onionFarmCost = 300f,
                     cheeseFactoryCost = 950f;

@@ -9,6 +9,7 @@ public class KettlerFactory : MonoBehaviour
     public bool setInputs;
     public List<string> inputs;
 
+    public bool autoMake = false;
     Vector2 position;
 
     public KettlerFactory(Factory factoryType = Factory.TwoInputs)
@@ -32,11 +33,12 @@ public class KettlerFactory : MonoBehaviour
     void Update()
     {
         if (setInputs) SetInputs();
+        if (autoMake && CanMakeChips()) MakeChips();
     }
 
     public void MakeChips()
     {
-        switch(factoryType)
+        switch (factoryType)
         {
             case Factory.AnyInputs: break;
             case Factory.TwoInputs: MakeChips(Resource.Type.Potato, Resource.Type.SunflowerOil); break;
@@ -56,88 +58,103 @@ public class KettlerFactory : MonoBehaviour
         inputs.Add(input4);
         inputs.Add(input5);
 
-        bool canMake = true;
-        foreach (Resource.Type input in inputs)
-        {
-            if (canMake)
-            {
-                switch(input)
-                {
-                    case Resource.Type.Potato:
-                        {
-                            if (GameController.controller.CurrentPotatoCount < 1) canMake = false;
-                            break;
-                        }
-                    case Resource.Type.SunflowerOil:
-                        {
-                            if (GameController.controller.CurrentSunflowerOilCount < 1) canMake = false;
-                            break;
-                        }
-                    case Resource.Type.Salt:
-                        {
-                            if (GameController.controller.CurrentSaltCount < 1) canMake = false;
-                            break;
-                        }
-                    case Resource.Type.Onion:
-                        {
-                            if (GameController.controller.CurrentOnionCount < 1) canMake = false;
-                            break;
-                        }
-                    case Resource.Type.Cheese:
-                        {
-                            if (GameController.controller.CurrentCheeseCount < 1) canMake = false;
-                            break;
-                        }
-                    case Resource.Type.Empty: break;
-                }
-            }
-        }
-        if (canMake)
+        if (CanMakeChips(inputs))
         {
             Debug.Log("Make chips.");
+            GameController.controller.DisplayError("Chips++", 3f, false);
             GameController.controller.CurrentChipCount = 1;
-            foreach (Resource.Type input in inputs)
-            {
-                switch (input)
-                {
-                    case Resource.Type.Potato:
-                        {
-                            GameController.controller.CurrentPotatoCount = -1; ;
-                            break;
-                        }
-                    case Resource.Type.SunflowerOil:
-                        {
-                            GameController.controller.CurrentSunflowerOilCount = -1;
-                            break;
-                        }
-                    case Resource.Type.Salt:
-                        {
-                            GameController.controller.CurrentSaltCount = -1;
-                            break;
-                        }
-                    case Resource.Type.Onion:
-                        {
-                            GameController.controller.CurrentOnionCount = -1;
-                            break;
-                        }
-                    case Resource.Type.Cheese:
-                        {
-                            GameController.controller.CurrentCheeseCount = -1;
-                            break;
-                        }
-                    case Resource.Type.Empty: break;
-                }
-            }
-        GameController.controller.DisplayError("Chips++", 3f, false);
-
+            TakeResources(inputs);
         }
         else GameController.controller.DisplayError("You can't afford chips!", 3f, false);
+    }
+
+    void TakeResources(List<Resource.Type> inputs)
+    {
+        foreach (Resource.Type input in inputs)
+        {
+            switch (input)
+            {
+                case Resource.Type.Potato:
+                    {
+                        GameController.controller.CurrentPotatoCount = -1; ;
+                        break;
+                    }
+                case Resource.Type.SunflowerOil:
+                    {
+                        GameController.controller.CurrentSunflowerOilCount = -1;
+                        break;
+                    }
+                case Resource.Type.Salt:
+                    {
+                        GameController.controller.CurrentSaltCount = -1;
+                        break;
+                    }
+                case Resource.Type.Onion:
+                    {
+                        GameController.controller.CurrentOnionCount = -1;
+                        break;
+                    }
+                case Resource.Type.Cheese:
+                    {
+                        GameController.controller.CurrentCheeseCount = -1;
+                        break;
+                    }
+                case Resource.Type.Empty: break;
+            }
+        }
+    }
+    bool CanMakeChips(List<Resource.Type> inputs)
+    {
+        foreach (Resource.Type input in inputs)
+        {
+            switch (input)
+            {
+                case Resource.Type.Potato:
+                    {
+                        if (GameController.controller.CurrentPotatoCount < 1) return false;
+                        break;
+                    }
+                case Resource.Type.SunflowerOil:
+                    {
+                        if (GameController.controller.CurrentSunflowerOilCount < 1) return false;
+                        break;
+                    }
+                case Resource.Type.Salt:
+                    {
+                        if (GameController.controller.CurrentSaltCount < 1) return false;
+                        break;
+                    }
+                case Resource.Type.Onion:
+                    {
+                        if (GameController.controller.CurrentOnionCount < 1) return false;
+                        break;
+                    }
+                case Resource.Type.Cheese:
+                    {
+                        if (GameController.controller.CurrentCheeseCount < 1) return false;
+                        break;
+                    }
+                case Resource.Type.Empty: break;
+            }
+        }
+        return true;
+    }
+
+    bool CanMakeChips()
+    {
+        if (GameController.controller.CurrentPotatoCount < 1) return false;
+        if (GameController.controller.CurrentSunflowerOilCount < 1) return false;
+        //if (GameController.controller.CurrentSaltCount < 1) return false;
+        //if (GameController.controller.CurrentOnionCount < 1) return false;
+        //if (GameController.controller.CurrentCheeseCount < 1) return false;
+        //I need to write logic here
+        return true;
     }
 
     void SetInputs(string input1 = "Potato", string input2 = "SunflowerOil", string input3 = "", string input4 = "", string input5 = "")
     {
         setInputs = false;
-        inputs = new List<string>(); 
+        inputs = new List<string>();
         switch (factoryType)
         {
             case Factory.TwoInputs:
