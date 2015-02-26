@@ -15,7 +15,8 @@ public class Resource : MonoBehaviour
         Salt, 
         Onion, 
         Cheese, 
-        KettlerFactory
+        KettlerFactory, 
+        Empty
     }
 
     public void IncrementResourceCount()

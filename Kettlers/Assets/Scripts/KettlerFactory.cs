@@ -34,6 +34,106 @@ public class KettlerFactory : MonoBehaviour
         if (setInputs) SetInputs();
     }
 
+    public void MakeChips()
+    {
+        switch(factoryType)
+        {
+            case Factory.AnyInputs: break;
+            case Factory.TwoInputs: MakeChips(Resource.Type.Potato, Resource.Type.SunflowerOil); break;
+            case Factory.ThreeInputs: break;
+            case Factory.FourInputs: break;
+            case Factory.FiveInputs: break;
+        }
+    }
+
+    void MakeChips(Resource.Type input1, Resource.Type input2, Resource.Type input3 = Resource.Type.Empty,
+                    Resource.Type input4 = Resource.Type.Empty, Resource.Type input5 = Resource.Type.Empty)
+    {
+        List<Resource.Type> inputs = new List<Resource.Type>();
+        inputs.Add(input1);
+        inputs.Add(input2);
+        inputs.Add(input3);
+        inputs.Add(input4);
+        inputs.Add(input5);
+
+        bool canMake = true;
+        foreach (Resource.Type input in inputs)
+        {
+            if (canMake)
+            {
+                switch(input)
+                {
+                    case Resource.Type.Potato:
+                        {
+                            if (GameController.controller.CurrentPotatoCount < 1) canMake = false;
+                            break;
+                        }
+                    case Resource.Type.SunflowerOil:
+                        {
+                            if (GameController.controller.CurrentSunflowerOilCount < 1) canMake = false;
+                            break;
+                        }
+                    case Resource.Type.Salt:
+                        {
+                            if (GameController.controller.CurrentSaltCount < 1) canMake = false;
+                            break;
+                        }
+                    case Resource.Type.Onion:
+                        {
+                            if (GameController.controller.CurrentOnionCount < 1) canMake = false;
+                            break;
+                        }
+                    case Resource.Type.Cheese:
+                        {
+                            if (GameController.controller.CurrentCheeseCount < 1) canMake = false;
+                            break;
+                        }
+                    case Resource.Type.Empty: break;
+                }
+            }
+        }
+        if (canMake)
+        {
+            Debug.Log("Make chips.");
+            GameController.controller.CurrentChipCount = 1;
+            foreach (Resource.Type input in inputs)
+            {
+                switch (input)
+                {
+                    case Resource.Type.Potato:
+                        {
+                            GameController.controller.CurrentPotatoCount = -1; ;
+                            break;
+                        }
+                    case Resource.Type.SunflowerOil:
+                        {
+                            GameController.controller.CurrentSunflowerOilCount = -1;
+                            break;
+                        }
+                    case Resource.Type.Salt:
+                        {
+                            GameController.controller.CurrentSaltCount = -1;
+                            break;
+                        }
+                    case Resource.Type.Onion:
+                        {
+                            GameController.controller.CurrentOnionCount = -1;
+                            break;
+                        }
+                    case Resource.Type.Cheese:
+                        {
+                            GameController.controller.CurrentCheeseCount = -1;
+                            break;
+                        }
+                    case Resource.Type.Empty: break;
+                }
+            }
+        GameController.controller.DisplayError("Chips++", 3f);
+
+        }
+        else GameController.controller.DisplayError("You can't afford chips!", 3f);
+    }
+
     void SetInputs(string input1 = "Potato", string input2 = "SunflowerOil", string input3 = "", string input4 = "", string input5 = "")
     {
         setInputs = false;

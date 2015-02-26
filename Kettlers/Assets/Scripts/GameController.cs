@@ -199,6 +199,11 @@ public class GameController : MonoBehaviour
         return TimeController.timeController.GetTime();
     }
 
+    public void DisplayError(string message, float duration)
+    {
+        uiController.DisplayError(message, duration);
+    }
+
     public void PurchaseItem(float price, Resource.Type resourceType)
     {
         if (price > currentMoney)
@@ -211,7 +216,7 @@ public class GameController : MonoBehaviour
             currentMoney -= price;
             if (currentMoney < 0) currentMoney = 0;
             resources.Add(MakeResource(resourceType));
-            resources[resources.Count - 1].SetActive(false);
+            //resources[resources.Count - 1].SetActive(false);
             resources[resources.Count - 1].name = GetResourceName(resourceType);
             resources[resources.Count - 1].transform.SetParent(transform.GetChild(0).transform);
             itemPurchased = true;
