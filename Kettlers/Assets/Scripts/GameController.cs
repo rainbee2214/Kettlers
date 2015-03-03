@@ -209,7 +209,7 @@ public class GameController : MonoBehaviour
         if (price > currentMoney)
         {
             uiController.DisplayError("Can't buy that, you're too poor!", 3f);
-            Debug.Log("Can't buy that, you're too poor!");
+            //Debug.Log("Can't buy that, you're too poor!");
         }
         else
         {
@@ -260,18 +260,15 @@ public class GameController : MonoBehaviour
 
     string GetResourceName(Resource.Type resourceType)
     {
-        string rName;
-
         switch (resourceType)
         {
-            default:
-            case Resource.Type.KettlerFactory: rName = "KettlerFactory"; break;
-            case Resource.Type.Potato: rName = "PotatoFarm"; break;
-            case Resource.Type.SunflowerOil: rName = "SunflowerFarm"; break;
-            case Resource.Type.Salt: rName = "SaltMine"; break;
-            case Resource.Type.Onion: rName = "OnionFarm"; break;
-            case Resource.Type.Cheese: rName = "CheeseFactory"; break;
+        default:
+		case Resource.Type.KettlerFactory: return "KettlerFactory"; 
+		case Resource.Type.Potato: return "PotatoFarm"; 
+		case Resource.Type.SunflowerOil: return "SunflowerFarm"; 
+		case Resource.Type.Salt: return "SaltMine";
+		case Resource.Type.Onion: return "OnionFarm"; 
+		case Resource.Type.Cheese: return "CheeseFactory";
         }
-        return rName;
     }
 }
