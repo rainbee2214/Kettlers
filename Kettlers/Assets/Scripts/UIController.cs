@@ -27,54 +27,29 @@ public class UIController : MonoBehaviour
     public Text errorMessage;
     ErrorMessage em;
 
-    public bool turnOff = false;
 
     void FixedUpdate()
     {
-        if (!turnOff)
-        {
-            if (clockText != null) clockText.text = TimeController.timeController.GetTime();
-            if (dayCount != null) dayCount.text = "Day: " + (((int)GameController.controller.DayCount < 10) ? "0" : "") + GameController.controller.DayCount;
+        if (clockText != null) clockText.text = TimeController.timeController.GetTime();
+        if (dayCount != null) dayCount.text = "Day: " + (((int)GameController.controller.DayCount < 10) ? "0" : "") + GameController.controller.DayCount;
 
-            if (potatoCount != null) potatoCount.text = "Potatoes: " + (GameController.controller.CurrentPotatoCount < 10 ? "0" : "") + GameController.controller.CurrentPotatoCount;
-            if (sunflowerOilCount != null) sunflowerOilCount.text = "Sunflower Oil: " + (GameController.controller.CurrentSunflowerOilCount < 10 ? "0" : "") + GameController.controller.CurrentSunflowerOilCount;
-            if (saltCount != null) saltCount.text = "Salt: " + (GameController.controller.CurrentSaltCount < 10 ? "0" : "") + GameController.controller.CurrentSaltCount;
-            if (onionCount != null) onionCount.text = "Onions: " + (GameController.controller.CurrentOnionCount < 10 ? "0" : "") + GameController.controller.CurrentOnionCount;
-            if (cheeseCount != null) cheeseCount.text = "Cheese: " + (GameController.controller.CurrentCheeseCount < 10 ? "0" : "") + GameController.controller.CurrentCheeseCount;
-            if (currentChipCount != null) currentChipCount.text = "Current Chips: " + (GameController.controller.CurrentChipCount < 10 ? "0" : "") + GameController.controller.CurrentChipCount;
-            if (totalChipCount != null) totalChipCount.text = "Total Chips: " + (GameController.controller.TotalChipCount < 10 ? "0" : "") + GameController.controller.TotalChipCount;
-            if (currentMoney != null) currentMoney.text = "Money: $" + GameController.controller.CurrentMoney;
-            if (name != null) name.text = "Name: " + GameController.controller.CurrentName;
+        if (potatoCount != null) potatoCount.text = "Potatoes: " + (GameController.controller.CurrentPotatoCount < 10 ? "0" : "") + GameController.controller.CurrentPotatoCount;
+        if (sunflowerOilCount != null) sunflowerOilCount.text = "Sunflower Oil: " + (GameController.controller.CurrentSunflowerOilCount < 10 ? "0" : "") + GameController.controller.CurrentSunflowerOilCount;
+        if (saltCount != null) saltCount.text = "Salt: " + (GameController.controller.CurrentSaltCount < 10 ? "0" : "") + GameController.controller.CurrentSaltCount;
+        if (onionCount != null) onionCount.text = "Onions: " + (GameController.controller.CurrentOnionCount < 10 ? "0" : "") + GameController.controller.CurrentOnionCount;
+        if (cheeseCount != null) cheeseCount.text = "Cheese: " + (GameController.controller.CurrentCheeseCount < 10 ? "0" : "") + GameController.controller.CurrentCheeseCount;
+        if (currentChipCount != null) currentChipCount.text = "Current Chips: " + (GameController.controller.CurrentChipCount < 10 ? "0" : "") + GameController.controller.CurrentChipCount;
+        if (totalChipCount != null) totalChipCount.text = "Total Chips: " + (GameController.controller.TotalChipCount < 10 ? "0" : "") + GameController.controller.TotalChipCount;
+        if (currentMoney != null) currentMoney.text = "Money: $" + GameController.controller.CurrentMoney;
+        if (name != null) name.text = "Name: " + GameController.controller.CurrentName;
 
-            if (kettlersCost != null) kettlersCost.text = "$" + GameController.controller.kettlerFactoryCost;
-            if (potatoCost != null) potatoCost.text = "$" + GameController.controller.potatoFarmCost;
-            if (sunflowerCost != null) sunflowerCost.text = "$" + GameController.controller.sunflowerFarmCost;
-            if (saltCost != null) saltCost.text = "$" + GameController.controller.saltMineCost;
-            if (onionCost != null) onionCost.text = "$" + GameController.controller.onionFarmCost;
-            if (cheeseCost != null) cheeseCost.text = "$" + GameController.controller.cheeseFactoryCost;
-        }
-        else
-        {
-            if (clockText != null) clockText.text = "";
-            if (dayCount != null) dayCount.text = "";
+        if (kettlersCost != null) kettlersCost.text = "$" + GameController.controller.kettlerFactoryCost;
+        if (potatoCost != null) potatoCost.text = "$" + GameController.controller.potatoFarmCost;
+        if (sunflowerCost != null) sunflowerCost.text = "$" + GameController.controller.sunflowerFarmCost;
+        if (saltCost != null) saltCost.text = "$" + GameController.controller.saltMineCost;
+        if (onionCost != null) onionCost.text = "$" + GameController.controller.onionFarmCost;
+        if (cheeseCost != null) cheeseCost.text = "$" + GameController.controller.cheeseFactoryCost;
 
-            if (potatoCount != null) potatoCount.text = "";
-            if (sunflowerOilCount != null) sunflowerOilCount.text = "";
-            if (saltCount != null) saltCount.text = "";
-            if (onionCount != null) onionCount.text = "";
-            if (cheeseCount != null) cheeseCount.text = "";
-            if (currentChipCount != null) currentChipCount.text = "";
-            if (totalChipCount != null) totalChipCount.text = "";
-            if (currentMoney != null) currentMoney.text = "";
-            if (name != null) name.text = "";
-
-            if (kettlersCost != null) kettlersCost.text = "";
-            if (potatoCost != null) potatoCost.text = "";
-            if (sunflowerCost != null) sunflowerCost.text = "";
-            if (saltCost != null) saltCost.text = "";
-            if (onionCost != null) onionCost.text = "";
-            if (cheeseCost != null) cheeseCost.text = "";
-        }
     }
 
     public void DisplayError(string message = " ... ", float duration = 2f, bool error = true)
@@ -82,19 +57,10 @@ public class UIController : MonoBehaviour
         if (em == null) em = errorMessage.GetComponent<ErrorMessage>();
         em.DisplayMessage(message, duration, error);
     }
-    public void TurnOn()
-    {
-        turnOff = false;
-    }
-
-    public void TurnOff()
-    {
-        turnOff = true;
-    }
 
     void Buy(string name)
     {
-        switch(name)
+        switch (name)
         {
             case "Kettler": GameController.controller.PurchaseItem(GameController.controller.kettlerFactoryCost, Resource.Type.KettlerFactory); break;
             case "Potato": GameController.controller.PurchaseItem(GameController.controller.potatoFarmCost, Resource.Type.Potato); break;
@@ -103,18 +69,18 @@ public class UIController : MonoBehaviour
             case "Onion": GameController.controller.PurchaseItem(GameController.controller.onionFarmCost, Resource.Type.Onion); break;
             case "Cheese": GameController.controller.PurchaseItem(GameController.controller.cheeseFactoryCost, Resource.Type.Cheese); break;
         }
-        
+
     }
     public void BuyKettlerFactory()
     {
         Buy("Kettler");
     }
-    
+
     public void BuyPotatoFarm()
     {
         Buy("Potato");
     }
-    
+
     public void BuySunflowerFarm()
     {
         Buy("Sunflower");
@@ -124,12 +90,12 @@ public class UIController : MonoBehaviour
     {
         Buy("Salt");
     }
-    
+
     public void BuyOnionFarm()
     {
         Buy("Onion");
     }
-    
+
     public void BuyCheeseFactory()
     {
         Buy("Cheese");

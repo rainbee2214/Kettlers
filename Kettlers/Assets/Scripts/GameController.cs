@@ -28,6 +28,7 @@ public class GameController : MonoBehaviour
     public GameObject cheeseResource;
 
     List<GameObject> resources;
+    Canvas mainUI;
 
     #region Properties
     string currentName = "Sarah";
@@ -126,6 +127,7 @@ public class GameController : MonoBehaviour
 
         uiController = GetComponent<UIController>();
         resources = new List<GameObject>();
+        mainUI = GetComponentInChildren<Canvas>();
     }
 
     void Update()
@@ -138,12 +140,12 @@ public class GameController : MonoBehaviour
         if (TimeController.timeController.IsPaused() && Application.loadedLevelName == "Level")
         {
             TimeController.timeController.UnPause();
-            uiController.TurnOn();
+            mainUI.enabled = true;
         }
         else if (Application.loadedLevelName != "Level")
         {
             TimeController.timeController.Reset();
-            uiController.TurnOff();
+            mainUI.enabled = false;
         }
 
         //if (itemPurchased && Input.GetButtonDown("PlaceItem")) PlaceItem(resources.Count - 1);
@@ -197,6 +199,12 @@ public class GameController : MonoBehaviour
     public string GetTime()
     {
         return TimeController.timeController.GetTime();
+    }
+
+    public string GetHour()
+    {
+        string time = TimeController.timeController.GetTime();
+        return time.Substring(0,2);
     }
 
     public void DisplayError(string message, float duration, bool error = true)
