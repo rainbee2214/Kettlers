@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class Fader : MonoBehaviour
 {
     static int LEVEL_NUMBER = 2;
+    public float fadeFactor = 0.1f;
     public Color opaque, transparent;
     public float speed = 0.01f;
     public bool fadeIn, fadeOut;
@@ -31,26 +32,31 @@ public class Fader : MonoBehaviour
         }
         if (fadeIn)
         {
+            GameController.controller.PauseGame();
+            GameController.controller.TurnCanvasOff();
             image.color = Color.Lerp(image.color, transparent, speed * Time.deltaTime);
-            speed += 0.01f;
+            speed += fadeFactor;
             if (image.color == transparent)
             {
                 //Debug.Log("Color target reached!");
                 speed = startSpeed;
                 fadeIn = false;
+
+                GameController.controller.TurnCanvasOn();
+                GameController.controller.UnPauseGame();
             }
         }
         else if (fadeOut)
         {
             image.color = Color.Lerp(image.color, opaque, speed * Time.deltaTime);
-            speed += 0.01f;
+            speed += fadeFactor;
             if (image.color == opaque)
             {
                Debug.Log("Color target reached!");
                 speed = startSpeed;
                 fadeOut = false;
-                    Application.LoadLevel("Between");
-                    GameController.controller.EndOFLevel = false;
+                Application.LoadLevel("Between");
+                GameController.controller.EndOFLevel = false;
             }
         }
 

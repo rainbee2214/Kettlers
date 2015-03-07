@@ -124,7 +124,7 @@ public class GameController : MonoBehaviour
     void OnLevelWasLoaded(int level)
     {
         Debug.Log("Level loaded: " + level);
-
+        PauseGame();
     }
 
     void Awake()
@@ -169,6 +169,7 @@ public class GameController : MonoBehaviour
         }
         //if (itemPurchased && Input.GetButtonDown("PlaceItem")) PlaceItem(resources.Count - 1);
     }
+    
     public void IncrementResources()
     {
         foreach (GameObject resource in resources)
