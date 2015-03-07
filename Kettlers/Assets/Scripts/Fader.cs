@@ -57,11 +57,6 @@ public class Fader : MonoBehaviour
 
     }
 
-    void OnLevelWasLoaded(int level)
-    {
-        if (level == LEVEL_NUMBER) Debug.Log("Level loaded: " + LEVEL_NUMBER);
-
-    }
 
     public void Activate()
     {

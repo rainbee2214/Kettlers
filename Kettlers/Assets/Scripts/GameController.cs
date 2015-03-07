@@ -121,6 +121,12 @@ public class GameController : MonoBehaviour
 
     bool itemPurchased;
 
+    void OnLevelWasLoaded(int level)
+    {
+        Debug.Log("Level loaded: " + level);
+
+    }
+
     void Awake()
     {
         if (controller == null)
@@ -301,5 +307,22 @@ public class GameController : MonoBehaviour
     {
         Debug.Log("Turning ui offf..");
         mainUI.enabled = false;
+    }
+
+    public void PauseGame()
+    {
+        TimeController.timeController.Pause();
+    }
+
+    public void UnPauseGame()
+    {
+        TimeController.timeController.UnPause();
+    }
+
+    public void TogglePause()
+    {
+        if (TimeController.timeController.IsPaused())
+            UnPauseGame();
+        else PauseGame();
     }
 }

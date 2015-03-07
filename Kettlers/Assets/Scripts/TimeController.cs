@@ -7,6 +7,8 @@ public class TimeController : MonoBehaviour
 
     [Range(1, 100)]
     public int timeSpeed = 1;
+    //Timescale of 0 is 'game time' and timescale of 1 is basically real time
+    [Range(0, 1)]
     public float timeScale = 1f;
     public int startingHour = 8;
     public bool tick;
