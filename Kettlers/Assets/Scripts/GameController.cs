@@ -28,9 +28,17 @@ public class GameController : MonoBehaviour
     public GameObject cheeseResource;
 
     List<GameObject> resources;
-    Canvas mainUI;
+    
+    [HideInInspector]
+    public Canvas mainUI;
 
     #region Properties
+    bool endOfLevel = false;
+    public bool EndOFLevel
+    {
+        get { return endOfLevel; }
+        set { endOfLevel = value; }
+    }
     string currentName = "Sarah";
     public string CurrentName
     {
@@ -137,17 +145,22 @@ public class GameController : MonoBehaviour
 
     void ManageGame()
     {
-        if (TimeController.timeController.IsPaused() && Application.loadedLevelName == "Level")
-        {
-            TimeController.timeController.UnPause();
-            mainUI.enabled = true;
-        }
-        else if (Application.loadedLevelName != "Level" && Application.loadedLevelName != "Level2")
+        //if (TimeController.timeController.IsPaused() && Application.loadedLevelName == "Level2")
+        //{
+        //    TimeController.timeController.UnPause();
+        //    mainUI.enabled = true;
+        //}
+        //else if (Application.loadedLevelName != "Level" && Application.loadedLevelName != "Level2")
+        //{
+        //    TimeController.timeController.Reset();
+        //    mainUI.enabled = false;
+        //}
+
+        if (Application.loadedLevelName == "Between")
         {
             TimeController.timeController.Reset();
             mainUI.enabled = false;
         }
-
         //if (itemPurchased && Input.GetButtonDown("PlaceItem")) PlaceItem(resources.Count - 1);
     }
     public void IncrementResources()
@@ -278,5 +291,15 @@ public class GameController : MonoBehaviour
 		case Resource.Type.Onion: return "OnionFarm"; 
 		case Resource.Type.Cheese: return "CheeseFactory";
         }
+    }
+
+    public void TurnCanvasOn()
+    {
+        mainUI.enabled = true;
+    }
+    public void TurnCanvasOff()
+    {
+        Debug.Log("Turning ui offf..");
+        mainUI.enabled = false;
     }
 }

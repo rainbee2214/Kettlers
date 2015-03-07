@@ -68,11 +68,12 @@ public class TimeController : MonoBehaviour
         GameController.controller.IncrementResources();
         currentMinutes = 0;
         currentHours++;
-        if (currentHours >= 12)
+        if (currentHours >= 8)
         {
             Pause();
             Reset();
-            Application.LoadLevel("Between");
+            GameController.controller.TurnCanvasOff();
+            GameController.controller.EndOFLevel = true;
             GameController.controller.DayCount = 1;
         }
     }

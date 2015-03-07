@@ -4,7 +4,8 @@ using UnityEngine.UI;
 
 public class Fader : MonoBehaviour
 {
-    public Color start, target, transparent;
+    static int LEVEL_NUMBER = 2;
+    public Color opaque, transparent;
     public float speed = 0.01f;
     public bool fadeIn, fadeOut;
     public bool activated;
@@ -17,40 +18,49 @@ public class Fader : MonoBehaviour
     {
         startSpeed = speed;
         image = GetComponent<Image>();
-        image.color = start;
+        image.color = opaque;
     }
 
     void Update()
     {
         if (reset) Reset();
-        if (activated)
+
+        if (GameController.controller.EndOFLevel)
         {
-            if (fadeIn)
+            fadeOut = true;
+        }
+        if (fadeIn)
+        {
+            image.color = Color.Lerp(image.color, transparent, speed * Time.deltaTime);
+            speed += 0.01f;
+            if (image.color == transparent)
             {
-                image.color = Color.Lerp(image.color, target, speed*Time.deltaTime);
-                speed += 0.01f;
-                if (image.color == target)
-                {
-                    Debug.Log("Color target reached!");
-                    activated = false;
-                }
-            }
-            else if (fadeOut)
-            {
-                image.color = Color.Lerp(image.color, start, speed * Time.deltaTime);
-                speed += 0.01f;
-                if (image.color == target)
-                {
-                    Debug.Log("Color target reached!");
-                    activated = false;
-                }
+                //Debug.Log("Color target reached!");
+                speed = startSpeed;
+                fadeIn = false;
             }
         }
-        else
+        else if (fadeOut)
         {
-            image.color = transparent;
+            image.color = Color.Lerp(image.color, opaque, speed * Time.deltaTime);
+            speed += 0.01f;
+            if (image.color == opaque)
+            {
+               Debug.Log("Color target reached!");
+                speed = startSpeed;
+                fadeOut = false;
+                    Application.LoadLevel("Between");
+                    GameController.controller.EndOFLevel = false;
+            }
         }
-        
+
+
+    }
+
+    void OnLevelWasLoaded(int level)
+    {
+        if (level == LEVEL_NUMBER) Debug.Log("Level loaded: " + LEVEL_NUMBER);
+
     }
 
     public void Activate()
@@ -60,7 +70,7 @@ public class Fader : MonoBehaviour
 
     public void Reset()
     {
-        image.color = start;
+        image.color = opaque;
         activated = true;
         reset = false;
         speed = startSpeed;
