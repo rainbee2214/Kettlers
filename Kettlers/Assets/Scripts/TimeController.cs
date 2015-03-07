@@ -4,6 +4,8 @@ using System.Collections;
 public class TimeController : MonoBehaviour
 {
     public static TimeController timeController;
+    public static int slowGame = 1;
+    public static int fastForward = 25;
 
     [Range(1, 100)]
     public int timeSpeed = 1;

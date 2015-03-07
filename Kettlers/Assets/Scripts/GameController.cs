@@ -309,20 +309,19 @@ public class GameController : MonoBehaviour
         mainUI.enabled = false;
     }
 
-    public void PauseGame()
-    {
-        TimeController.timeController.Pause();
-    }
-
-    public void UnPauseGame()
-    {
-        TimeController.timeController.UnPause();
-    }
-
+    public void PauseGame() { TimeController.timeController.Pause(); }
+    public void UnPauseGame() { TimeController.timeController.UnPause(); }
     public void TogglePause()
     {
-        if (TimeController.timeController.IsPaused())
-            UnPauseGame();
+        if (TimeController.timeController.IsPaused()) UnPauseGame();
         else PauseGame();
+    }
+
+    public void FastForwardGame() { TimeController.timeController.timeSpeed = TimeController.fastForward; }
+    public void SlowDownGame() { TimeController.timeController.timeSpeed = TimeController.slowGame; }
+    public void ToggleFastForward()
+    {
+        if (TimeController.timeController.timeSpeed > 1) SlowDownGame();
+        else FastForwardGame();
     }
 }
