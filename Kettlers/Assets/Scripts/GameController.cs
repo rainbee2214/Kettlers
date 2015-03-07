@@ -142,7 +142,7 @@ public class GameController : MonoBehaviour
             TimeController.timeController.UnPause();
             mainUI.enabled = true;
         }
-        else if (Application.loadedLevelName != "Level")
+        else if (Application.loadedLevelName != "Level" && Application.loadedLevelName != "Level2")
         {
             TimeController.timeController.Reset();
             mainUI.enabled = false;
