@@ -43,7 +43,7 @@ public class Fader : MonoBehaviour
                 fadeIn = false;
 
                 GameController.controller.TurnCanvasOn();
-                GameController.controller.UnPauseGame();
+                //GameController.controller.UnPauseGame();
             }
         }
         else if (fadeOut)

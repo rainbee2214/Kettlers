@@ -31,6 +31,8 @@ public class GameController : MonoBehaviour
     
     [HideInInspector]
     public Canvas mainUI;
+    [HideInInspector]
+    public Statistics stats;
 
     #region Properties
     bool endOfLevel = false;
@@ -123,9 +125,15 @@ public class GameController : MonoBehaviour
 
     void OnLevelWasLoaded(int level)
     {
-        Debug.Log("Level loaded: " + level);
+        //Debug.Log("Level loaded: " + level);
         if (TimeController.timeController.timeSpeed > 1) GameController.controller.SlowDownGame();
         PauseGame();
+
+        if (level == 3)
+        {
+            stats.DisplayMessageBox(("Good Morning! Day " + dayCount), "...");
+            PauseGame();
+        }
     }
 
     void Awake()
@@ -143,6 +151,7 @@ public class GameController : MonoBehaviour
         uiController = GetComponent<UIController>();
         resources = new List<GameObject>();
         mainUI = GetComponentInChildren<Canvas>();
+        stats = GetComponentInChildren<Statistics>();
     }
 
     void Update()
