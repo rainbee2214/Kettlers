@@ -52,7 +52,7 @@ public class Fader : MonoBehaviour
             speed += fadeFactor;
             if (image.color == opaque)
             {
-               Debug.Log("Color target reached!");
+              // Debug.Log("Color target reached!");
                 speed = startSpeed;
                 fadeOut = false;
                 Application.LoadLevel("Between");

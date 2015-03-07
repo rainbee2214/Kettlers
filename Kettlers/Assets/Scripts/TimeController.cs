@@ -12,6 +12,7 @@ public class TimeController : MonoBehaviour
     //Timescale of 0 is 'game time' and timescale of 1 is basically real time
     [Range(0, 1)]
     public float timeScale = 1f;
+    [Range(1, 12)]
     public int startingHour = 8;
     public bool tick;
     public bool reset;
@@ -72,7 +73,7 @@ public class TimeController : MonoBehaviour
         GameController.controller.IncrementResources();
         currentMinutes = 0;
         currentHours++;
-        if (currentHours >= 8)
+        if (currentHours >= 12)
         {
             Pause();
             Reset();

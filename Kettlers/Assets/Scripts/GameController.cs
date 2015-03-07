@@ -124,6 +124,7 @@ public class GameController : MonoBehaviour
     void OnLevelWasLoaded(int level)
     {
         Debug.Log("Level loaded: " + level);
+        if (TimeController.timeController.timeSpeed > 1) GameController.controller.SlowDownGame();
         PauseGame();
     }
 
@@ -306,7 +307,6 @@ public class GameController : MonoBehaviour
     }
     public void TurnCanvasOff()
     {
-        Debug.Log("Turning ui offf..");
         mainUI.enabled = false;
     }
 

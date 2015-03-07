@@ -9,6 +9,7 @@ public class SkyController : MonoBehaviour
     public float speed = 1f;
 
     Skybox skybox;
+    int lastSky;
 
     void Start()
     {
@@ -18,7 +19,8 @@ public class SkyController : MonoBehaviour
     void Update()
     {
         //skybox.material.mainTextureOffset = new Vector2(Time.time * speed,0);
-        SetSky();
+        if (GameController.controller.EndOFLevel) skybox.material = skyTimes[lastSky];
+        else SetSky();
     }
 
     void SetSky()
@@ -40,6 +42,7 @@ public class SkyController : MonoBehaviour
         {
             currentSky = 4;
         }
+        lastSky = currentSky;
         skybox.material = skyTimes[currentSky];
     }
 }
