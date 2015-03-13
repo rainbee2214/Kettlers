@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 //Fades in and out at the beginning and end of the day
 //Needs a delay at the end of the day to display the last message, and to show the final hour time
-[RequireComponent(typeof(image))]
+[RequireComponent(typeof(Image))]
 public class Fader : MonoBehaviour
 {
     public float fadeFactor = 0.1f;

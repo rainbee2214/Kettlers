@@ -35,7 +35,7 @@ public class ButtonColour : MonoBehaviour
                     else button.image.color = offColor;
                     break;
                 }
-            case default:
+            default:
                 {
                     button.image.color = offColor;
                     break;
