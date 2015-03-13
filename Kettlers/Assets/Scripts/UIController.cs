@@ -100,4 +100,9 @@ public class UIController : MonoBehaviour
     {
         Buy("Cheese");
     }
+
+    public void Test(GameObject buttonClicked)
+    {
+        Debug.Log(buttonClicked.name);
+    }
 }

@@ -27,14 +27,21 @@ public class GameController : MonoBehaviour
     public GameObject onionResource;
     public GameObject cheeseResource;
 
-    List<GameObject> resources;
+    List<Image> resources;
     
     [HideInInspector]
     public Canvas mainUI;
     [HideInInspector]
     public Statistics stats;
+    public Marketplace marketplace;
 
     #region Properties
+    GameObject currentPressedGridButton;
+    public GameObject CurrentPressedGridButton
+    {
+        get { return currentPressedGridButton;}
+        set { currentPressedGridButton = value; }
+    }
     bool endOfLevel = false;
     public bool EndOFLevel
     {
@@ -131,7 +138,7 @@ public class GameController : MonoBehaviour
 
         if (level == 3)
         {
-            stats.DisplayMessageBox(("Good Morning! Day " + dayCount), "...");
+            stats.DisplayMessageBox(true,("Good Morning! Day " + dayCount), "...");
             PauseGame();
         }
     }
@@ -149,9 +156,10 @@ public class GameController : MonoBehaviour
         }
 
         uiController = GetComponent<UIController>();
-        resources = new List<GameObject>();
+        resources = new List<Image>();
         mainUI = GetComponentInChildren<Canvas>();
         stats = GetComponentInChildren<Statistics>();
+        marketplace = GetComponentInChildren<Marketplace>();
     }
 
     void Update()
@@ -182,7 +190,7 @@ public class GameController : MonoBehaviour
     
     public void IncrementResources()
     {
-        foreach (GameObject resource in resources)
+        foreach (Image resource in resources)
         {
             switch (resource.name)
             {
@@ -256,7 +264,10 @@ public class GameController : MonoBehaviour
             resources.Add(MakeResource(resourceType));
             //resources[resources.Count - 1].SetActive(false);
             resources[resources.Count - 1].name = GetResourceName(resourceType);
-            resources[resources.Count - 1].transform.SetParent(transform.GetChild(0).transform);
+            resources[resources.Count - 1].transform.SetParent(currentPressedGridButton.transform);  //transform.GetChild(0).transform);
+            resources[resources.Count - 1].rectTransform.position = Vector3.zero;
+            //Debug.Log("Position is "+ resources[resources.Count - 1].rectTransform.position.x);
+            ResetBuildingPosition.ResetRectTransform(resources[resources.Count - 1].GetComponent<RectTransform>());
             itemPurchased = true;
         }
     }
@@ -270,7 +281,7 @@ public class GameController : MonoBehaviour
         if (hit.collider != null)
         {
             Debug.Log(hit.collider.name);
-            resources[index].SetActive(true);
+            resources[index].gameObject.SetActive(true);
         }
     }
 
@@ -279,7 +290,7 @@ public class GameController : MonoBehaviour
         currentMoney += price;
     }
 
-    GameObject MakeResource(Resource.Type resourceType)
+    Image MakeResource(Resource.Type resourceType)
     {
         GameObject resource;
 
@@ -293,7 +304,7 @@ public class GameController : MonoBehaviour
             case Resource.Type.Onion: resource = Instantiate(onionResource) as GameObject; break;
             case Resource.Type.Cheese: resource = Instantiate(cheeseResource) as GameObject; break;
         }
-        return resource;
+        return resource.GetComponent<Image>();
     }
 
     string GetResourceName(Resource.Type resourceType)
@@ -334,4 +345,6 @@ public class GameController : MonoBehaviour
         if (TimeController.timeController.timeSpeed > 1) SlowDownGame();
         else FastForwardGame();
     }
+
+
 }

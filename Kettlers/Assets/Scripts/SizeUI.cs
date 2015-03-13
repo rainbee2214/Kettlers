@@ -36,7 +36,7 @@ public class SizeUI : MonoBehaviour
         lastRow = rows;
         lastColumn = columns;
         image.rectTransform.localScale = new Vector3((screenWidth/rows)/100f, (screenHeight/columns)/100f, 1);
-        PositionUI();
+        //PositionUI();
     }
 
 

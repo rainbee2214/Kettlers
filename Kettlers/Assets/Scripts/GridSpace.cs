@@ -4,36 +4,19 @@ using UnityEngine.UI;
 
 public class GridSpace : MonoBehaviour
 {
-    public bool occupied;
-    public bool activated;
-
-    public Color activeColor;
-    public Color inactiveColor;
-
-    Image image;
-
-    void Awake()
+    public bool Occupied()
     {
-        image = GetComponent<Image>();
-    }
-    public void SetUpSpace()
-    {
-        activated = true;
-        occupied = false;
-    }
+        if (GetComponentsInChildren<Object>().Length > 1)
+        {
+            return true;
+        }
 
-    public void TakeDownSpace()
-    {
-        activated = false;
-        occupied = false;
+        return false;
     }
 
     void Update()
     {
-        if (activated) image.color = activeColor;
-        else image.color = inactiveColor;
+        if (Occupied()) Debug.Log("Occupied!");
     }
-
-    
 }
 
