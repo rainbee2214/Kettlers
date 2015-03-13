@@ -36,6 +36,12 @@ public class GameController : MonoBehaviour
     public Marketplace marketplace;
 
     #region Properties
+    float currentChipPrice = 3f;
+    public float CurrentChipPrice
+    {
+        set { currentChipPrice = value; }
+        get { return currentChipPrice; }
+    }
     GameObject currentPressedGridButton;
     public GameObject CurrentPressedGridButton
     {
@@ -336,5 +342,17 @@ public class GameController : MonoBehaviour
         else FastForwardGame();
     }
 
+    public void SellChips(int amount = -1)
+    {
+        if (amount == -1) // Sell all chips
+        {
+            amount = currentChipCount;
+        }
+        for (int i = 0; i < amount; i++)
+        {
+            SellItem(currentChipPrice);
+            currentChipCount--;
+        }
+    }
 
 }

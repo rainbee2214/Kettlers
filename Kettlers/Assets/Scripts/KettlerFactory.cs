@@ -63,6 +63,7 @@ public class KettlerFactory : MonoBehaviour
             Debug.Log("Make chips.");
             GameController.controller.DisplayError("Chips++", 3f, false);
             GameController.controller.CurrentChipCount = 1;
+            GameController.controller.TotalChipCount = 1;
             TakeResources(inputs);
         }
         else GameController.controller.DisplayError("You can't afford chips!", 3f, false);
