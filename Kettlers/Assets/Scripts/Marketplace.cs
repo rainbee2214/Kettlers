@@ -1,14 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.UI;
 
-public class Statistics : Messenger
+public class Marketplace : Messenger
 {
 
     void Start()
     {
-           currentTitle = "Morning Update";
-           currentMessage = "...";
+
     }
 
     void Update()
