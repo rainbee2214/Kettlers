@@ -23,7 +23,7 @@ public class ErrorMessage : MonoBehaviour
 
     public void DisplayMessage(string message, float duration, bool error = true)
     {
-        errorText.text = (error)?"Error: " : "" + message;
+        errorText.text = ((error)?"Error: " : "") + message;
         displayingMessage = true;
         turnOffTime = Time.time + duration;
     }

@@ -6,8 +6,8 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Image))]
 public class SizeUI : MonoBehaviour
 {
-    [Range(1,20)]
-    public float rows = 1f, columns = 1f;
+    [Range(1,40)]
+    public float rows = 40f, columns = 25f;
     float lastRow, lastColumn;
 
     [Range(0f, 1f)]

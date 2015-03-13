@@ -28,7 +28,7 @@ public class GameController : MonoBehaviour
     public GameObject cheeseResource;
 
     List<Image> resources;
-    
+
     [HideInInspector]
     public Canvas mainUI;
     [HideInInspector]
@@ -39,7 +39,7 @@ public class GameController : MonoBehaviour
     GameObject currentPressedGridButton;
     public GameObject CurrentPressedGridButton
     {
-        get { return currentPressedGridButton;}
+        get { return currentPressedGridButton; }
         set { currentPressedGridButton = value; }
     }
     bool endOfLevel = false;
@@ -128,8 +128,6 @@ public class GameController : MonoBehaviour
 
     #endregion
 
-    bool itemPurchased;
-
     void OnLevelWasLoaded(int level)
     {
         //Debug.Log("Level loaded: " + level);
@@ -138,7 +136,7 @@ public class GameController : MonoBehaviour
 
         if (level == 3)
         {
-            stats.DisplayMessageBox(true,("Good Morning! Day " + dayCount), "...");
+            stats.DisplayMessageBox(true, ("Good Morning! Day " + dayCount), "...");
             PauseGame();
         }
     }
@@ -169,25 +167,13 @@ public class GameController : MonoBehaviour
 
     void ManageGame()
     {
-        //if (TimeController.timeController.IsPaused() && Application.loadedLevelName == "Level2")
-        //{
-        //    TimeController.timeController.UnPause();
-        //    mainUI.enabled = true;
-        //}
-        //else if (Application.loadedLevelName != "Level" && Application.loadedLevelName != "Level2")
-        //{
-        //    TimeController.timeController.Reset();
-        //    mainUI.enabled = false;
-        //}
-
         if (Application.loadedLevelName == "Between")
         {
             TimeController.timeController.Reset();
             mainUI.enabled = false;
         }
-        //if (itemPurchased && Input.GetButtonDown("PlaceItem")) PlaceItem(resources.Count - 1);
     }
-    
+
     public void IncrementResources()
     {
         foreach (Image resource in resources)
@@ -242,7 +228,7 @@ public class GameController : MonoBehaviour
     public string GetHour()
     {
         string time = TimeController.timeController.GetTime();
-        return time.Substring(0,2);
+        return time.Substring(0, 2);
     }
 
     public void DisplayError(string message, float duration, bool error = true)
@@ -250,27 +236,30 @@ public class GameController : MonoBehaviour
         uiController.DisplayError(message, duration, error);
     }
 
-    public void PurchaseItem(float price, Resource.Type resourceType)
+    public bool PurchaseItem(float price, Resource.Type resourceType)
     {
         if (price > currentMoney)
         {
             uiController.DisplayError("Can't buy that, you're too poor!", 3f);
-            //Debug.Log("Can't buy that, you're too poor!");
-        }
-        else
-        {
-            currentMoney -= price;
-            if (currentMoney < 0) currentMoney = 0;
-            resources.Add(MakeResource(resourceType));
-            //resources[resources.Count - 1].SetActive(false);
-            resources[resources.Count - 1].name = GetResourceName(resourceType);
-            resources[resources.Count - 1].transform.SetParent(currentPressedGridButton.transform);  //transform.GetChild(0).transform);
-            resources[resources.Count - 1].rectTransform.position = Vector3.zero;
-            //Debug.Log("Position is "+ resources[resources.Count - 1].rectTransform.position.x);
-            ResetBuildingPosition.ResetRectTransform(resources[resources.Count - 1].GetComponent<RectTransform>());
-            itemPurchased = true;
             marketplace.CloseMessageBox();
+            return false;
         }
+        if (currentPressedGridButton.GetComponent<GridSpace>().Occupied())
+        {
+            uiController.DisplayError("There's no room for that here!", 3f);
+            marketplace.CloseMessageBox();
+            return false;
+        }
+
+        currentMoney -= price;
+        resources.Add(MakeResource(resourceType));
+        resources[resources.Count - 1].name = GetResourceName(resourceType);
+        resources[resources.Count - 1].transform.SetParent(currentPressedGridButton.transform);  //transform.GetChild(0).transform);
+        resources[resources.Count - 1].rectTransform.position = Vector3.zero;
+        ResetBuildingPosition.ResetRectTransform(resources[resources.Count - 1].GetComponent<RectTransform>());
+        marketplace.CloseMessageBox();
+
+        return true;
     }
 
     void PlaceItem(int index)
@@ -312,13 +301,13 @@ public class GameController : MonoBehaviour
     {
         switch (resourceType)
         {
-        default:
-		case Resource.Type.KettlerFactory: return "KettlerFactory"; 
-		case Resource.Type.Potato: return "PotatoFarm"; 
-		case Resource.Type.SunflowerOil: return "SunflowerFarm"; 
-		case Resource.Type.Salt: return "SaltMine";
-		case Resource.Type.Onion: return "OnionFarm"; 
-		case Resource.Type.Cheese: return "CheeseFactory";
+            default:
+            case Resource.Type.KettlerFactory: return "KettlerFactory";
+            case Resource.Type.Potato: return "PotatoFarm";
+            case Resource.Type.SunflowerOil: return "SunflowerFarm";
+            case Resource.Type.Salt: return "SaltMine";
+            case Resource.Type.Onion: return "OnionFarm";
+            case Resource.Type.Cheese: return "CheeseFactory";
         }
     }
 
