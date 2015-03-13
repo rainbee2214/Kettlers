@@ -3,7 +3,6 @@ using System.Collections;
 
 public class SkyController : MonoBehaviour
 {
-
     public Material[] skyTimes;
     public int currentSky;
     public float speed = 1f;
@@ -18,7 +17,6 @@ public class SkyController : MonoBehaviour
 
     void Update()
     {
-        //skybox.material.mainTextureOffset = new Vector2(Time.time * speed,0);
         if (GameController.controller.EndOFLevel) skybox.material = skyTimes[lastSky];
         else SetSky();
     }

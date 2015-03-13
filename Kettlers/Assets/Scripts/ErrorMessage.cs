@@ -18,7 +18,6 @@ public class ErrorMessage : MonoBehaviour
         {
             EmptyMessage();
         }
-        else if (!displayingMessage) EmptyMessage();
     }
 
     public void DisplayMessage(string message, float duration, bool error = true)

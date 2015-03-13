@@ -9,10 +9,4 @@ public class PotatoFarm : Resource
         outputPerHour = 3;
         resourceType = Type.Potato;
     }
-
-    void FixedUpdate()
-    {
-        
-    }
-
 }

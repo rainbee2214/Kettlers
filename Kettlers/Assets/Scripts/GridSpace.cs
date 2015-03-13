@@ -6,17 +6,8 @@ public class GridSpace : MonoBehaviour
 {
     public bool Occupied()
     {
-        if (gameObject.GetComponentsInChildren<Transform>().Length > 1)
-        {
-            return true;
-        }
-
+        if (gameObject.GetComponentsInChildren<Transform>().Length > 1) return true;
         return false;
-    }
-
-    void Update()
-    {
-        //if (Occupied()) Debug.Log("Occupied!");
     }
 }
 

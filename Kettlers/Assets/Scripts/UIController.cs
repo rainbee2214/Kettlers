@@ -27,7 +27,6 @@ public class UIController : MonoBehaviour
     public Text errorMessage;
     ErrorMessage em;
 
-
     void FixedUpdate()
     {
         if (clockText != null) clockText.text = TimeController.timeController.GetTime();
@@ -71,38 +70,11 @@ public class UIController : MonoBehaviour
         }
 
     }
-    public void BuyKettlerFactory()
-    {
-        Buy("Kettler");
-    }
 
-    public void BuyPotatoFarm()
-    {
-        Buy("Potato");
-    }
-
-    public void BuySunflowerFarm()
-    {
-        Buy("Sunflower");
-    }
-
-    public void BuySaltMine()
-    {
-        Buy("Salt");
-    }
-
-    public void BuyOnionFarm()
-    {
-        Buy("Onion");
-    }
-
-    public void BuyCheeseFactory()
-    {
-        Buy("Cheese");
-    }
-
-    public void Test(GameObject buttonClicked)
-    {
-        Debug.Log(buttonClicked.name);
-    }
+    public void BuyKettlerFactory() { Buy("Kettler"); }
+    public void BuyPotatoFarm() { Buy("Potato"); }
+    public void BuySunflowerFarm() { Buy("Sunflower"); }
+    public void BuySaltMine() { Buy("Salt"); }
+    public void BuyOnionFarm() { Buy("Onion"); }
+    public void BuyCheeseFactory() { Buy("Cheese"); }
 }

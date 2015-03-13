@@ -2,9 +2,11 @@
 using System.Collections;
 using UnityEngine.UI;
 
+//Fades in and out at the beginning and end of the day
+//Needs a delay at the end of the day to display the last message, and to show the final hour time
+[RequireComponent(typeof(image))]
 public class Fader : MonoBehaviour
 {
-    static int LEVEL_NUMBER = 2;
     public float fadeFactor = 0.1f;
     public Color opaque, transparent;
     public float speed = 0.01f;
@@ -38,12 +40,9 @@ public class Fader : MonoBehaviour
             speed += fadeFactor;
             if (image.color == transparent)
             {
-                //Debug.Log("Color target reached!");
                 speed = startSpeed;
                 fadeIn = false;
-
                 GameController.controller.TurnCanvasOn();
-                //GameController.controller.UnPauseGame();
             }
         }
         else if (fadeOut)
@@ -52,17 +51,13 @@ public class Fader : MonoBehaviour
             speed += fadeFactor;
             if (image.color == opaque)
             {
-              // Debug.Log("Color target reached!");
                 speed = startSpeed;
                 fadeOut = false;
                 Application.LoadLevel("Between");
                 GameController.controller.EndOFLevel = false;
             }
         }
-
-
     }
-
 
     public void Activate()
     {
@@ -76,5 +71,4 @@ public class Fader : MonoBehaviour
         reset = false;
         speed = startSpeed;
     }
-
 }

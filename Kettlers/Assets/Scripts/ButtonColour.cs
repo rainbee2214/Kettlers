@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Button))]
 public class ButtonColour : MonoBehaviour
 {
     public Color onColor, offColor;
@@ -32,6 +33,11 @@ public class ButtonColour : MonoBehaviour
                 {
                     if (TimeController.timeController.timeSpeed > 1) button.image.color = onColor;
                     else button.image.color = offColor;
+                    break;
+                }
+            case default:
+                {
+                    button.image.color = offColor;
                     break;
                 }
         }

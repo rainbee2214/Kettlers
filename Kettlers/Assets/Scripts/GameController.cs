@@ -6,11 +6,12 @@ using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(TimeController))]
 [RequireComponent(typeof(UIController))]
+[RequireComponent(typeof(Canvas))]
+[RequireComponent(typeof(Statistics))]
+[RequireComponent(typeof(Marketplace))]
 public class GameController : MonoBehaviour
 {
     public static GameController controller;
-    public const int width = 5;
-    public const int height = 3;
 
     public float kettlerFactoryCost = 500f,
                     potatoFarmCost = 200f,
@@ -20,12 +21,12 @@ public class GameController : MonoBehaviour
                     cheeseFactoryCost = 950f;
     UIController uiController;
 
-    public GameObject kettlerResource;
-    public GameObject potatoResource;
-    public GameObject sunflowerResource;
-    public GameObject saltResource;
-    public GameObject onionResource;
-    public GameObject cheeseResource;
+    GameObject kettlerResource;
+    GameObject potatoResource;
+    GameObject sunflowerResource;
+    GameObject saltResource;
+    GameObject onionResource;
+    GameObject cheeseResource;
 
     List<Image> resources;
 
@@ -33,6 +34,7 @@ public class GameController : MonoBehaviour
     public Canvas mainUI;
     [HideInInspector]
     public Statistics stats;
+    [HideInInspector]
     public Marketplace marketplace;
 
     #region Properties
@@ -61,7 +63,7 @@ public class GameController : MonoBehaviour
         set { currentName = value; }
     }
 
-    float currentMoney = 1000.00f;
+    float currentMoney = 3000.00f;
     public float CurrentMoney
     {
         get { return currentMoney; }
@@ -159,11 +161,18 @@ public class GameController : MonoBehaviour
             Destroy(gameObject);
         }
 
-        uiController = GetComponent<UIController>();
         resources = new List<Image>();
+        uiController = GetComponent<UIController>();
         mainUI = GetComponentInChildren<Canvas>();
         stats = GetComponentInChildren<Statistics>();
         marketplace = GetComponentInChildren<Marketplace>();
+
+        kettlerResource = Resources.Load("Prefabs/Buildings/KettlerFactory", typeof(GameObject)) as GameObject;
+        potatoResource = Resources.Load("Prefabs/Buildings/PotatoFarm", typeof(GameObject)) as GameObject;
+        sunflowerResource = Resources.Load("Prefabs/Buildings/SunflowerFarm", typeof(GameObject)) as GameObject;
+        saltResource = Resources.Load("Prefabs/Buildings/SaltMine", typeof(GameObject)) as GameObject;
+        onionResource = Resources.Load("Prefabs/Buildings/OnionFarm", typeof(GameObject)) as GameObject;
+        cheeseResource = Resources.Load("Prefabs/Buildings/CheeseFactory", typeof(GameObject)) as GameObject;
     }
 
     void Update()
@@ -260,25 +269,12 @@ public class GameController : MonoBehaviour
         currentMoney -= price;
         resources.Add(MakeResource(resourceType));
         resources[resources.Count - 1].name = GetResourceName(resourceType);
-        resources[resources.Count - 1].transform.SetParent(currentPressedGridButton.transform);  //transform.GetChild(0).transform);
+        resources[resources.Count - 1].transform.SetParent(currentPressedGridButton.transform);  
         resources[resources.Count - 1].rectTransform.position = Vector3.zero;
         ResetBuildingPosition.ResetRectTransform(resources[resources.Count - 1].GetComponent<RectTransform>());
         marketplace.CloseMessageBox();
 
         return true;
-    }
-
-    void PlaceItem(int index)
-    {
-        //if the position clicked is active and unoccupied
-
-        Vector2 ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        RaycastHit2D hit = Physics2D.Raycast(ray, Vector2.zero);
-        if (hit.collider != null)
-        {
-            Debug.Log(hit.collider.name);
-            resources[index].gameObject.SetActive(true);
-        }
     }
 
     public void SellItem(float price, string name = "")
