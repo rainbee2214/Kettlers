@@ -269,6 +269,7 @@ public class GameController : MonoBehaviour
             //Debug.Log("Position is "+ resources[resources.Count - 1].rectTransform.position.x);
             ResetBuildingPosition.ResetRectTransform(resources[resources.Count - 1].GetComponent<RectTransform>());
             itemPurchased = true;
+            marketplace.CloseMessageBox();
         }
     }
 

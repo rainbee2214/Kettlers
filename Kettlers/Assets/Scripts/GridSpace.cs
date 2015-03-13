@@ -6,7 +6,7 @@ public class GridSpace : MonoBehaviour
 {
     public bool Occupied()
     {
-        if (GetComponentsInChildren<Object>().Length > 1)
+        if (GetComponent<GameObject>() != null)
         {
             return true;
         }
