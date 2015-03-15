@@ -10,18 +10,6 @@ Chip flavour preferences for world population are randomized each game. New city
 Time of day preferences:
 Tolerance levels:
 
-Menus:
--Build new building
--Sell/view chips
--General Marketplace [upgrades, new land]
--Employees
--Statistics
--Messages
--Marketing
--Production Schedule
--Building Options
--Kettler Factory Settings/Inputs
-
 
 -Option to auto start day in between level
 
@@ -46,4 +34,30 @@ Flavour Combinations : 8 total
 	+ salt + onion + cheese 
 }
 
-Each grid space can contain a building of some kind. Initally, there are 3 x 3 grid spaces
+
+Menus:
+
+-Build new building
+-Sell/view chips
+-General Marketplace [upgrades, new land]
+-Employees
+-Statistics
+-Messages
+-Marketing
+-Production Schedule (Costs overhead to produce chips)
+-Building Options
+-Kettler Factory Settings/Inputs
+
+
+
+To Do:
+-Create list of chips to sell.
+-Create lists of chips
+-Create chip class (inputs oil, potato + 0-3 extra)
+-Create population class
+-Work on price multipliers
+-Create supply and demand charts
+-Work on gathering statistics about game progress (money made, money spent, rating, chip rating/per flavour, over time)
+-Rating system: how well chip attributes match the current population attributes
+-Grid ownership: build entire possible grid, hide inactive. Set price based on how many are left, and based on how full your current grid is
+-Create production schedule, can produce up to n times a day (based on upgrades), each time the overhead has a basic cost. So you don't want to produce on little to no inputs
