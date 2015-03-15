@@ -5,6 +5,7 @@ using UnityEngine.UI;
 [ExecuteInEditMode]
 public class UIController : MonoBehaviour
 {
+    public GameObject[] messageBoxes;
     public Text clockText;
     public Text dayCount;
     public Text potatoCount;
@@ -77,4 +78,47 @@ public class UIController : MonoBehaviour
     public void BuySaltMine() { Buy("Salt"); }
     public void BuyOnionFarm() { Buy("Onion"); }
     public void BuyCheeseFactory() { Buy("Cheese"); }
+
+    public void ShowMessageBox(string menuType)
+    {
+        int index = 0;
+        switch (menuType)
+        {
+            case "BuildingOptions":     index = 0; break;
+            case "BuildNewBuilding":    index = 1; break;
+            case "Employees":           index = 2; break;
+            case "GeneralMarketplace":  index = 3; break;
+            case "KettlerFactory":      index = 4; break;
+            case "ManageChips":         index = 5; break;
+            case "Marketing":           index = 6; break;
+            case "ProductionSchedule":  index = 7; break;
+            case "Statistics":          index = 8; break;
+            case "GeneralText":          index = 9; break;
+        }
+        messageBoxes[index].GetComponent<Messenger>().ToggleMessageBox();
+    }
+
+    public void CloseCurrentMessageBox()
+    {
+        foreach (GameObject messageBox in messageBoxes)
+        {
+            if (messageBox.activeSelf) messageBox.GetComponent<Messenger>().CloseMessageBox();
+        }
+    }
+
+    //public void ShowMessageBox(Messenger.Menu menuType)
+    //{
+    //    switch (menuType)
+    //    {
+    //        case Messenger.Menu.BuildingOptions:    messageBoxes[0].SetActive(true); break;
+    //        case Messenger.Menu.BuildNewBuilding:   messageBoxes[1].SetActive(true); break;
+    //        case Messenger.Menu.Employees:          messageBoxes[2].SetActive(true); break;
+    //        case Messenger.Menu.GeneralMarketplace: messageBoxes[3].SetActive(true); break;
+    //        case Messenger.Menu.KettlerFactory:     messageBoxes[4].SetActive(true); break;
+    //        case Messenger.Menu.ManageChips:        messageBoxes[5].SetActive(true); break;
+    //        case Messenger.Menu.Marketing:          messageBoxes[6].SetActive(true); break;
+    //        case Messenger.Menu.ProductionSchedule: messageBoxes[7].SetActive(true); break;
+    //        case Messenger.Menu.Statistics:         messageBoxes[8].SetActive(true); break;
+    //    }
+    //}
 }

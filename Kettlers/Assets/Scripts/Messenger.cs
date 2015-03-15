@@ -2,8 +2,23 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class Messenger : MonoBehaviour 
+public class Messenger : MonoBehaviour
 {
+    public enum Menu
+    {
+        BuildNewBuilding,
+        ManageChips, 
+        GeneralMarketplace,
+        Employees, 
+        Statistics,
+        Marketing,
+        ProductionSchedule,
+        BuildingOptions,
+        KettlerFactory
+    }
+
+    public Menu menuType;
+
     public GameObject messageBox;
 
     public string currentTitle = "Default messenger app.";
@@ -23,7 +38,7 @@ public class Messenger : MonoBehaviour
         else DisplayMessageBox(messageOnly, currentTitle, currentMessage);
     }
 
-    public void DisplayMessageBox(bool messageOnly = true, string title = "", string message = "")
+    protected void DisplayMessageBox(bool messageOnly = true, string title = "", string message = "")
     {
         if (messageOnly)
         {
@@ -33,21 +48,27 @@ public class Messenger : MonoBehaviour
             messageBox.GetComponentsInChildren<Text>()[1].text = (message == "") ? currentMessage : message;
             displayingMessage = true;
         }
-        else DisplayOtherBox();
+        else
+        {
+            if (title == "") DisplayOtherBox();
+            else DisplayOtherBox(title);
+        }
+        //Debug.Log(displayingMessage);
     }
 
-    public void DisplayOtherBox()
+    protected void DisplayOtherBox(string title = "")
     {
-            messageBox.gameObject.SetActive(true);
-            GameController.controller.PauseGame();
-            displayingMessage = true;
+        if (title != "") currentTitle = title;
+        messageBox.gameObject.SetActive(true);
+        GameController.controller.PauseGame();
+        displayingMessage = true;
     }
 
     public void CloseMessageBox()
     {
-       // messageBox.GetComponentsInChildren<Text>()[1].text = "";
         messageBox.gameObject.SetActive(false);
         GameController.controller.UnPauseGame();
         displayingMessage = false;
     }
+
 }

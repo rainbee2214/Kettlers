@@ -32,10 +32,6 @@ public class GameController : MonoBehaviour
 
     [HideInInspector]
     public Canvas mainUI;
-    [HideInInspector]
-    public Statistics stats;
-    [HideInInspector]
-    public Marketplace marketplace;
 
     #region Properties
     float currentChipPrice = 3f;
@@ -144,7 +140,8 @@ public class GameController : MonoBehaviour
 
         if (level == 3)
         {
-            stats.DisplayMessageBox(true, ("Good Morning! Day " + dayCount), "...");
+            uiController.ShowMessageBox("Statistics");
+            //DisplayMessageBox(true, ("Good Morning! Day " + dayCount), "...");
             PauseGame();
         }
     }
@@ -164,8 +161,6 @@ public class GameController : MonoBehaviour
         resources = new List<Image>();
         uiController = GetComponent<UIController>();
         mainUI = GetComponentInChildren<Canvas>();
-        stats = GetComponentInChildren<Statistics>();
-        marketplace = GetComponentInChildren<Marketplace>();
 
         kettlerResource = Resources.Load("Prefabs/Buildings/KettlerFactory", typeof(GameObject)) as GameObject;
         potatoResource = Resources.Load("Prefabs/Buildings/PotatoFarm", typeof(GameObject)) as GameObject;
@@ -256,23 +251,23 @@ public class GameController : MonoBehaviour
         if (price > currentMoney)
         {
             uiController.DisplayError("Can't buy that, you're too poor!", 3f);
-            marketplace.CloseMessageBox();
+            uiController.CloseCurrentMessageBox();
             return false;
         }
         if (currentPressedGridButton.GetComponent<GridSpace>().Occupied())
         {
             uiController.DisplayError("There's no room for that here!", 3f);
-            marketplace.CloseMessageBox();
+            uiController.CloseCurrentMessageBox();
             return false;
         }
 
         currentMoney -= price;
         resources.Add(MakeResource(resourceType));
         resources[resources.Count - 1].name = GetResourceName(resourceType);
-        resources[resources.Count - 1].transform.SetParent(currentPressedGridButton.transform);  
+        resources[resources.Count - 1].transform.SetParent(currentPressedGridButton.transform);
         resources[resources.Count - 1].rectTransform.position = Vector3.zero;
         ResetBuildingPosition.ResetRectTransform(resources[resources.Count - 1].GetComponent<RectTransform>());
-        marketplace.CloseMessageBox();
+        uiController.CloseCurrentMessageBox();
 
         return true;
     }
