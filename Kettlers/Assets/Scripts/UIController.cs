@@ -106,19 +106,4 @@ public class UIController : MonoBehaviour
         }
     }
 
-    //public void ShowMessageBox(Messenger.Menu menuType)
-    //{
-    //    switch (menuType)
-    //    {
-    //        case Messenger.Menu.BuildingOptions:    messageBoxes[0].SetActive(true); break;
-    //        case Messenger.Menu.BuildNewBuilding:   messageBoxes[1].SetActive(true); break;
-    //        case Messenger.Menu.Employees:          messageBoxes[2].SetActive(true); break;
-    //        case Messenger.Menu.GeneralMarketplace: messageBoxes[3].SetActive(true); break;
-    //        case Messenger.Menu.KettlerFactory:     messageBoxes[4].SetActive(true); break;
-    //        case Messenger.Menu.ManageChips:        messageBoxes[5].SetActive(true); break;
-    //        case Messenger.Menu.Marketing:          messageBoxes[6].SetActive(true); break;
-    //        case Messenger.Menu.ProductionSchedule: messageBoxes[7].SetActive(true); break;
-    //        case Messenger.Menu.Statistics:         messageBoxes[8].SetActive(true); break;
-    //    }
-    //}
 }
