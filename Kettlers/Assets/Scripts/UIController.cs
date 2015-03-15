@@ -24,7 +24,6 @@ public class UIController : MonoBehaviour
     public Text saltCost;
     public Text onionCost;
     public Text cheeseCost;
-
     public Text errorMessage;
     ErrorMessage em;
 
@@ -84,31 +83,60 @@ public class UIController : MonoBehaviour
         int index = 0;
         switch (menuType)
         {
-            case "BuildingOptions":     index = 0; break;
-            case "BuildNewBuilding":    index = 1; break;
-            case "Employees":           index = 2; break;
-            case "GeneralMarketplace":  index = 3; break;
-            case "KettlerFactory":      index = 4; break;
-            case "ManageChips":         index = 5; break;
-            case "Marketing":           index = 6; break;
-            case "ProductionSchedule":  index = 7; break;
-            case "Statistics":          index = 8; break;
-            case "OverviewResources":   index = 9; break;
-            case "ViewHistory":         index = 10; break;
-            case "MarketResearch":      index = 11; break;
-            case "OverviewFactories":   index = 12; break;
-            case "GeneralText":         index = 13; break;
+            case "BuildNewBuilding": index = 0; break;
+            case "BuildingOptions": index = 1; break;
+            case "Employees": index = 2; break;
+            case "GeneralMarketplace": index = 3; break;
+            case "KettlerFactory": index = 4; break;
+            case "ManageChips": index = 5; break;
+            case "Marketing": index = 6; break;
+            case "ProductionSchedule": index = 7; break;
+            case "Statistics": index = 8; break;
+            case "OverviewResources": index = 9; break;
+            case "ViewHistory": index = 10; break;
+            case "MarketResearch": index = 11; break;
+            case "OverviewFactories": index = 12; break;
+            case "GeneralText": index = 13; break;
         }
         if (title != "" && message != "") messageBoxes[index].GetComponent<Messenger>().SetMessage(title, message);
         messageBoxes[index].GetComponent<Messenger>().ToggleMessageBox();
     }
 
-    public void CloseCurrentMessageBox()
+    public bool CloseCurrentMessageBox()
     {
+        //Goes through all message boxes, checks if they're active or not
+        int count = 0;
         foreach (GameObject messageBox in messageBoxes)
         {
-            if (messageBox.activeInHierarchy) messageBox.GetComponent<Messenger>().CloseMessageBox();
+            //The first in the list is the grid, it has multiple buttons to check
+            if (count == 0)
+            {
+                foreach (Transform gridSpace in messageBox.GetComponentsInChildren<Transform>())
+                {
+                    //Don't check the first in the list
+                    if (count != 0)
+                    {
+                        Messenger m = gridSpace.GetComponent<Messenger>();
+                        if (m != null && gridSpace.gameObject.GetComponent<MenuButton>().messageBox.activeSelf)
+                        {
+                            m.CloseMessageBox();
+                            return true;
+                        }
+                    }
+                    count++;
+                }
+            }
+            else //Check the rest of messageBoxes in the list
+            {
+                Messenger m = messageBox.GetComponent<Messenger>();
+                if (m != null && messageBox.GetComponent<MenuButton>().messageBox.activeSelf)
+                {
+                    m.CloseMessageBox();
+                    return true;
+                }
+            }
         }
+        return true;
     }
 
 }

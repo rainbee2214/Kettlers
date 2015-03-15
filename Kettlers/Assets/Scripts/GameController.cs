@@ -38,6 +38,13 @@ public class GameController : MonoBehaviour
     public bool hasStatisticsMenu, hasMarketingMenu, hasEmployeeMenu, hasProductionScheduleMenu,
                 hasResourceOverviewMenu, hasViewHistoryMenu, hasMarketResourceMenu, hasFactoryOverviewMenu;
     #region Properties
+    string currentBuildingMenu;
+    public string CurrentBuildingMenu
+    {
+        get { return currentBuildingMenu; }
+        set { currentBuildingMenu = value; }
+    }
+
     float currentChipPrice = 3f;
     public float CurrentChipPrice
     {

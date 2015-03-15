@@ -14,7 +14,12 @@ public class Messenger : MonoBehaviour
         Marketing,
         ProductionSchedule,
         BuildingOptions,
-        KettlerFactory
+        KettlerFactory,
+        GeneralText,
+        ResourcesOverview,
+        FactoryOverview,
+        ViewHistory,
+        MarketResearch
     }
 
     public Menu menuType;
@@ -25,6 +30,12 @@ public class Messenger : MonoBehaviour
     public string currentMessage = "Please send an actual message.";
 
     protected bool displayingMessage;
+
+    public void SetMessageBox(GameObject newMessageBox, Menu newMenuType)
+    {
+        messageBox = newMessageBox;
+        menuType = newMenuType;
+    }
 
     public void SetMessage(string title, string message)
     {
@@ -61,6 +72,7 @@ public class Messenger : MonoBehaviour
     {
         if (title != "") currentTitle = title;
         messageBox.gameObject.SetActive(true);
+        messageBox.GetComponentsInChildren<Text>()[0].text = currentTitle;
         GameController.controller.PauseGame();
         displayingMessage = true;
     }
