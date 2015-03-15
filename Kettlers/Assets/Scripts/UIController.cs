@@ -79,7 +79,7 @@ public class UIController : MonoBehaviour
     public void BuyOnionFarm() { Buy("Onion"); }
     public void BuyCheeseFactory() { Buy("Cheese"); }
 
-    public void ShowMessageBox(string menuType)
+    public void ShowMessageBox(string menuType, string title = "", string message = "")
     {
         int index = 0;
         switch (menuType)
@@ -93,8 +93,13 @@ public class UIController : MonoBehaviour
             case "Marketing":           index = 6; break;
             case "ProductionSchedule":  index = 7; break;
             case "Statistics":          index = 8; break;
-            case "GeneralText":          index = 9; break;
+            case "OverviewResources":   index = 9; break;
+            case "ViewHistory":         index = 10; break;
+            case "MarketResearch":      index = 11; break;
+            case "OverviewFactories":   index = 12; break;
+            case "GeneralText":         index = 13; break;
         }
+        if (title != "" && message != "") messageBoxes[index].GetComponent<Messenger>().SetMessage(title, message);
         messageBoxes[index].GetComponent<Messenger>().ToggleMessageBox();
     }
 
@@ -102,7 +107,7 @@ public class UIController : MonoBehaviour
     {
         foreach (GameObject messageBox in messageBoxes)
         {
-            if (messageBox.activeSelf) messageBox.GetComponent<Messenger>().CloseMessageBox();
+            if (messageBox.activeInHierarchy) messageBox.GetComponent<Messenger>().CloseMessageBox();
         }
     }
 

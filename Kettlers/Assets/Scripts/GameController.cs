@@ -13,6 +13,7 @@ public class GameController : MonoBehaviour
 {
     public static GameController controller;
 
+    [HideInInspector]
     public float kettlerFactoryCost = 500f,
                     potatoFarmCost = 200f,
                     sunflowerFarmCost = 300f,
@@ -33,6 +34,9 @@ public class GameController : MonoBehaviour
     [HideInInspector]
     public Canvas mainUI;
 
+    [HideInInspector]
+    public bool hasStatisticsMenu, hasMarketingMenu, hasEmployeeMenu, hasProductionScheduleMenu,
+                hasResourceOverviewMenu, hasViewHistoryMenu, hasMarketResourceMenu, hasFactoryOverviewMenu;
     #region Properties
     float currentChipPrice = 3f;
     public float CurrentChipPrice
@@ -137,12 +141,13 @@ public class GameController : MonoBehaviour
         //Debug.Log("Level loaded: " + level);
         if (TimeController.timeController.timeSpeed > 1) GameController.controller.SlowDownGame();
         PauseGame();
+            Debug.Log("Hello " + level);
 
         if (level == 3)
         {
-            uiController.ShowMessageBox("Statistics");
+            uiController.ShowMessageBox("GeneralText", "Good Morning - Day: "+ dayCount, "......");
             //DisplayMessageBox(true, ("Good Morning! Day " + dayCount), "...");
-            PauseGame();
+            //PauseGame();
         }
     }
 
@@ -270,6 +275,11 @@ public class GameController : MonoBehaviour
         uiController.CloseCurrentMessageBox();
 
         return true;
+    }
+
+    public void CloseMessageBoxes()
+    {
+        uiController.CloseCurrentMessageBox();
     }
 
     public void SellItem(float price, string name = "")

@@ -40,6 +40,7 @@ public class Messenger : MonoBehaviour
 
     protected void DisplayMessageBox(bool messageOnly = true, string title = "", string message = "")
     {
+        GameController.controller.CloseMessageBoxes();
         if (messageOnly)
         {
             messageBox.gameObject.SetActive(true);
