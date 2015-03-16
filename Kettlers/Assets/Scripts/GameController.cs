@@ -32,6 +32,9 @@ public class GameController : MonoBehaviour
     List<Image> resources;
 
     [HideInInspector]
+    public ChipProduction chipProduction;
+
+    [HideInInspector]
     public Canvas mainUI;
 
     [HideInInspector]
@@ -122,7 +125,7 @@ public class GameController : MonoBehaviour
     int currentChipCount = 0;
     public int CurrentChipCount
     {
-        get { return currentChipCount; }
+        get { return chipProduction.chips.Count; }
         set
         {
             currentChipCount += value;
@@ -148,10 +151,10 @@ public class GameController : MonoBehaviour
         //Debug.Log("Level loaded: " + level);
         if (TimeController.timeController.timeSpeed > 1) GameController.controller.SlowDownGame();
         PauseGame();
-            Debug.Log("Hello " + level);
 
         if (level == 3)
         {
+            Debug.Log("Hello " + level);
             uiController.ShowMessageBox("GeneralText", "Good Morning - Day: "+ dayCount, "......");
             //DisplayMessageBox(true, ("Good Morning! Day " + dayCount), "...");
             //PauseGame();
@@ -173,6 +176,7 @@ public class GameController : MonoBehaviour
         resources = new List<Image>();
         uiController = GetComponent<UIController>();
         mainUI = GetComponentInChildren<Canvas>();
+        chipProduction = GetComponent<ChipProduction>();
 
         kettlerResource = Resources.Load("Prefabs/Buildings/KettlerFactory", typeof(GameObject)) as GameObject;
         potatoResource = Resources.Load("Prefabs/Buildings/PotatoFarm", typeof(GameObject)) as GameObject;
@@ -352,15 +356,24 @@ public class GameController : MonoBehaviour
 
     public void SellChips(int amount = -1)
     {
-        if (amount == -1) // Sell all chips
+        if (amount == -1)
         {
-            amount = currentChipCount;
+            int count = chipProduction.chips.Count;
+            foreach (Chips chip in chipProduction.chips)
+            {
+                SellItem(chip.BasePrice);
+            }
+            chipProduction.chips.Clear();
         }
-        for (int i = 0; i < amount; i++)
-        {
-            SellItem(currentChipPrice);
-            currentChipCount--;
-        }
+        //if (amount == -1) // Sell all chips
+        //{
+        //    amount = currentChipCount;
+        //}
+        //for (int i = 0; i < amount; i++)
+        //{
+        //    SellItem(currentChipPrice);
+        //    currentChipCount--;
+        //}
     }
 
 }

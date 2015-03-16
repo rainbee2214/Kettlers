@@ -39,7 +39,7 @@ public class UIController : MonoBehaviour
         if (cheeseCount != null) cheeseCount.text = "Cheese: " + (GameController.controller.CurrentCheeseCount < 10 ? "0" : "") + GameController.controller.CurrentCheeseCount;
         if (currentChipCount != null) currentChipCount.text = "Current Chips: " + (GameController.controller.CurrentChipCount < 10 ? "0" : "") + GameController.controller.CurrentChipCount;
         if (totalChipCount != null) totalChipCount.text = "Total Chips: " + (GameController.controller.TotalChipCount < 10 ? "0" : "") + GameController.controller.TotalChipCount;
-        if (currentMoney != null) currentMoney.text = "Money: $" + GameController.controller.CurrentMoney;
+        if (currentMoney != null) currentMoney.text = "Money: $" + GameController.controller.CurrentMoney.ToString("#########.00");
         if (name != null) name.text = "Name: " + GameController.controller.CurrentName;
 
         if (kettlersCost != null) kettlersCost.text = "$" + GameController.controller.kettlerFactoryCost;

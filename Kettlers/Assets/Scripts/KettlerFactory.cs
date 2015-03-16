@@ -4,12 +4,12 @@ using System.Collections.Generic;
 
 public class KettlerFactory : MonoBehaviour
 {
+    public int priority = 1f;
+
     public Factory factoryType = Factory.TwoInputs;
 
-    public bool setInputs;
-    public List<string> inputs;
+    public List<Resource.Type> inputResources;
 
-    public bool autoMake = false;
     Vector2 position;
 
     public KettlerFactory(Factory factoryType = Factory.TwoInputs)
@@ -32,8 +32,6 @@ public class KettlerFactory : MonoBehaviour
 
     void Update()
     {
-        if (setInputs) SetInputs();
-        if (autoMake && CanMakeChips()) MakeChips();
     }
 
     public void MakeChips()
@@ -42,9 +40,9 @@ public class KettlerFactory : MonoBehaviour
         {
             case Factory.AnyInputs: break;
             case Factory.TwoInputs: MakeChips(Resource.Type.Potato, Resource.Type.SunflowerOil); break;
-            case Factory.ThreeInputs: break;
-            case Factory.FourInputs: break;
-            case Factory.FiveInputs: break;
+            case Factory.ThreeInputs: MakeChips(inputResources[0], inputResources[1], inputResources[2]); break;
+            case Factory.FourInputs: MakeChips(inputResources[0], inputResources[1], inputResources[2], inputResources[3]); break;
+            case Factory.FiveInputs: MakeChips(inputResources[0], inputResources[1], inputResources[2], inputResources[3], inputResources[4]); break;
         }
     }
 
@@ -54,16 +52,15 @@ public class KettlerFactory : MonoBehaviour
         List<Resource.Type> inputs = new List<Resource.Type>();
         inputs.Add(input1);
         inputs.Add(input2);
-        inputs.Add(input3);
-        inputs.Add(input4);
-        inputs.Add(input5);
+        if (input3 != Resource.Type.Empty) inputs.Add(input3);
+        if (input4 != Resource.Type.Empty) inputs.Add(input4);
+        if (input5 != Resource.Type.Empty) inputs.Add(input5);
 
         if (CanMakeChips(inputs))
         {
-            Debug.Log("Make chips.");
             GameController.controller.DisplayError("Chips++", 3f, false);
-            GameController.controller.CurrentChipCount = 1;
             GameController.controller.TotalChipCount = 1;
+            GameController.controller.chipProduction.MakeChips(inputs);
             TakeResources(inputs);
         }
         else GameController.controller.DisplayError("You can't afford chips!", 3f, false);
@@ -141,66 +138,6 @@ public class KettlerFactory : MonoBehaviour
         return true;
     }
 
-    bool CanMakeChips()
-    {
-        if (GameController.controller.CurrentPotatoCount < 1) return false;
-        if (GameController.controller.CurrentSunflowerOilCount < 1) return false;
-        //if (GameController.controller.CurrentSaltCount < 1) return false;
-        //if (GameController.controller.CurrentOnionCount < 1) return false;
-        //if (GameController.controller.CurrentCheeseCount < 1) return false;
-        //I need to write logic here
-        return true;
-    }
-
-    void SetInputs(string input1 = "Potato", string input2 = "SunflowerOil", string input3 = "", string input4 = "", string input5 = "")
-    {
-        setInputs = false;
-        inputs = new List<string>();
-        switch (factoryType)
-        {
-            case Factory.TwoInputs:
-                {
-                    inputs.Add(input1);
-                    inputs.Add(input2);
-                    break;
-                }
-            case Factory.ThreeInputs:
-                {
-                    inputs.Add(input1);
-                    inputs.Add(input2);
-                    inputs.Add(input3);
-                    break;
-                }
-            case Factory.FourInputs:
-                {
-                    inputs.Add(input1);
-                    inputs.Add(input2);
-                    inputs.Add(input3);
-                    inputs.Add(input4);
-                    break;
-                }
-            case Factory.FiveInputs:
-                {
-                    inputs.Add(input1);
-                    inputs.Add(input2);
-                    inputs.Add(input3);
-                    inputs.Add(input4);
-                    inputs.Add(input5);
-                    break;
-                }
-            case Factory.AnyInputs:
-                {
-                    inputs.Add(input1);
-                    inputs.Add(input2);
-                    if (input3 != "") inputs.Add(input3);
-                    if (input4 != "") inputs.Add(input4);
-                    if (input5 != "") inputs.Add(input5);
-                    break;
-                }
-            default: break;
-        }
-    }
-
     public void SetFactoryType(Factory factoryType)
     {
         this.factoryType = factoryType;
@@ -218,7 +155,4 @@ public class KettlerFactory : MonoBehaviour
             default: return Factory.TwoInputs;
         }
     }
-
-
-
 }
