@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class KettlerFactory : MonoBehaviour
 {
-    public int priority = 1f;
+    public int priority = 1;
 
     public Factory factoryType = Factory.TwoInputs;
 
@@ -154,5 +154,28 @@ public class KettlerFactory : MonoBehaviour
             case 5: return Factory.FiveInputs;
             default: return Factory.TwoInputs;
         }
+    }
+
+    public bool ManageInputs(List<bool> inputsOnOff)
+    {
+        int maxInputs = 2;
+
+        switch (factoryType)
+        {
+            case Factory.TwoInputs: maxInputs = 2; break;
+            case Factory.ThreeInputs: maxInputs = 3; break;
+            case Factory.FourInputs: maxInputs = 4; break;
+            case Factory.AnyInputs: 
+            case Factory.FiveInputs: maxInputs = 5; break;
+        }
+
+        int count = 0;
+        foreach (bool b in inputsOnOff)
+        {
+            if (b) count++;
+        }
+
+        if (count > maxInputs) return false; //Can't check the box
+        else return true; //Can check the box
     }
 }

@@ -7,6 +7,7 @@ public class GridSpace : MenuButton
 
     public Menu menuType2;
     public GameObject messageBox2;
+    public GameObject kettlerFactory;
 
     public bool Occupied()
     {
@@ -23,6 +24,10 @@ public class GridSpace : MenuButton
         {
             GameController.controller.CurrentBuildingMenu = GetBuildingType();
             SetMessageBox(messageBox2, menuType2);
+            if (GetBuildingType() == "KettlerFactory")
+            {
+                SetMessageBox(kettlerFactory, Menu.KettlerFactory);
+            }
             DisplayMessageBox(false, GameController.controller.CurrentBuildingMenu + " Options");
         }
         else DisplayMessageBox(false);
