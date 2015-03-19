@@ -178,4 +178,12 @@ public class KettlerFactory : MonoBehaviour
         if (count > maxInputs) return false; //Can't check the box
         else return true; //Can check the box
     }
+
+    public void PrintResources()
+    {
+        foreach (Resource.Type r in inputResources)
+        {
+            Debug.Log(r);
+        }
+    }
 }

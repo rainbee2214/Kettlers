@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 [RequireComponent(typeof(UIController))]
 [RequireComponent(typeof(Canvas))]
 [RequireComponent(typeof(Statistics))]
-[RequireComponent(typeof(Marketplace))]
+//[RequireComponent(typeof(Marketplace))]
 public class GameController : MonoBehaviour
 {
     public static GameController controller;
@@ -31,12 +31,17 @@ public class GameController : MonoBehaviour
 
     List<Image> resources;
 
+    public List<GameObject> kettlerFactories;
+
+    public float moneyMadeToday;
+    public int chipsSoldToday;
+
+    [HideInInspector]
+    public Statistics stats;
     [HideInInspector]
     public ChipProduction chipProduction;
-
     [HideInInspector]
     public Canvas mainUI;
-
     [HideInInspector]
     public bool hasStatisticsMenu, hasMarketingMenu, hasEmployeeMenu, hasProductionScheduleMenu,
                 hasResourceOverviewMenu, hasViewHistoryMenu, hasMarketResourceMenu, hasFactoryOverviewMenu;
@@ -155,7 +160,7 @@ public class GameController : MonoBehaviour
         if (level == 3)
         {
             Debug.Log("Hello " + level);
-            uiController.ShowMessageBox("GeneralText", "Good Morning - Day: "+ dayCount, "......");
+            uiController.ShowMessageBox("GeneralText", "Good Morning - Day: " + dayCount, "......");
             //DisplayMessageBox(true, ("Good Morning! Day " + dayCount), "...");
             //PauseGame();
         }
@@ -177,6 +182,7 @@ public class GameController : MonoBehaviour
         uiController = GetComponent<UIController>();
         mainUI = GetComponentInChildren<Canvas>();
         chipProduction = GetComponent<ChipProduction>();
+        stats = GetComponent<Statistics>();
 
         kettlerResource = Resources.Load("Prefabs/Buildings/KettlerFactory", typeof(GameObject)) as GameObject;
         potatoResource = Resources.Load("Prefabs/Buildings/PotatoFarm", typeof(GameObject)) as GameObject;
@@ -184,6 +190,8 @@ public class GameController : MonoBehaviour
         saltResource = Resources.Load("Prefabs/Buildings/SaltMine", typeof(GameObject)) as GameObject;
         onionResource = Resources.Load("Prefabs/Buildings/OnionFarm", typeof(GameObject)) as GameObject;
         cheeseResource = Resources.Load("Prefabs/Buildings/CheeseFactory", typeof(GameObject)) as GameObject;
+
+        kettlerFactories = new List<GameObject>();
     }
 
     void Update()
@@ -305,7 +313,12 @@ public class GameController : MonoBehaviour
         switch (resourceType)
         {
             default:
-            case Resource.Type.KettlerFactory: resource = Instantiate(kettlerResource) as GameObject; break;
+            case Resource.Type.KettlerFactory:
+                {
+                    resource = Instantiate(kettlerResource) as GameObject;
+                    kettlerFactories.Add(resource);
+                    break;
+                }
             case Resource.Type.Potato: resource = Instantiate(potatoResource) as GameObject; break;
             case Resource.Type.SunflowerOil: resource = Instantiate(sunflowerResource) as GameObject; break;
             case Resource.Type.Salt: resource = Instantiate(saltResource) as GameObject; break;
@@ -362,9 +375,12 @@ public class GameController : MonoBehaviour
             foreach (Chips chip in chipProduction.chips)
             {
                 SellItem(chip.BasePrice);
+                moneyMadeToday += chip.BasePrice;
+                chipsSoldToday++;
             }
             chipProduction.chips.Clear();
         }
+
         //if (amount == -1) // Sell all chips
         //{
         //    amount = currentChipCount;

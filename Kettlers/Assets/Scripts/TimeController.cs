@@ -75,12 +75,21 @@ public class TimeController : MonoBehaviour
         currentHours++;
         if (currentHours >= 12)
         {
-            Pause();
-            Reset();
-            GameController.controller.TurnCanvasOff();
-            GameController.controller.EndOFLevel = true;
-            GameController.controller.DayCount = 1;
+            TickDay();
         }
+    }
+
+    public void TickDay()
+    {
+        currentHours = 12;
+        Pause();
+        Reset();
+        GameController.controller.TurnCanvasOff();
+        GameController.controller.EndOFLevel = true;
+        GameController.controller.DayCount = 1;
+        GameController.controller.stats.RunStats();
+        GameController.controller.moneyMadeToday = 0f;
+        GameController.controller.chipsSoldToday = 0;
     }
 
     public override string ToString()
