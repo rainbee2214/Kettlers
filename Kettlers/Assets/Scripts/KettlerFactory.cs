@@ -6,15 +6,27 @@ public class KettlerFactory : MonoBehaviour
 {
     public int priority = 1;
 
-    public Factory factoryType = Factory.TwoInputs;
+    public Factory factoryType = Factory.ThreeInputs;
 
     public List<Resource.Type> inputResources;
 
     Vector2 position;
 
-    public KettlerFactory(Factory factoryType = Factory.TwoInputs)
+    public void Start()
     {
-        this.factoryType = factoryType;
+        inputResources = new List<Resource.Type>();
+        inputResources.Add(Resource.Type.Potato);
+        inputResources.Add(Resource.Type.SunflowerOil);
+        if (factoryType == Factory.ThreeInputs)
+        {
+            switch (Random.Range(0,3))
+            {
+                default:
+                case 0: inputResources.Add(Resource.Type.Salt); break;
+                case 1: inputResources.Add(Resource.Type.Onion); break;
+                case 2: inputResources.Add(Resource.Type.Cheese); break;
+            }
+        }
     }
 
     public enum Factory
@@ -26,12 +38,12 @@ public class KettlerFactory : MonoBehaviour
         FiveInputs = 5
     }
 
-    void Start()
-    {
-    }
 
-    void Update()
+    public void SetInputs (List<Resource.Type> newInputs)
     {
+        inputResources[0] = newInputs[0];
+        inputResources[1] = newInputs[1];
+        inputResources[2] = newInputs[2];
     }
 
     public void MakeChips()
@@ -136,6 +148,11 @@ public class KettlerFactory : MonoBehaviour
             }
         }
         return true;
+    }
+
+    public Factory GetFactortyType()
+    {
+        return factoryType;
     }
 
     public void SetFactoryType(Factory factoryType)
