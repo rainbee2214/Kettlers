@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
+
 
 //This class will be used to instantiate and place all the UI:
 //Grid space
@@ -16,8 +18,10 @@ public class UIBuilder : MonoBehaviour
 
     public bool buyGridSpace;
 
+    public GameObject gameController;
     public GameObject grid; //This object will be the parent of the generated grid spaces
     GameObject gridspace;
+    UnityEngine.Events.UnityAction action = () => {; myOtherMethod(); };
 
     float lastWidthPosition;
 
@@ -41,8 +45,8 @@ public class UIBuilder : MonoBehaviour
         temp.GetComponent<PlaceButton>().widthPercentage = lastWidthPosition;
         temp.GetComponent<PlaceButton>().heightPercentage = LOWER_GRID_LEVEL;
         temp.transform.SetParent(grid.transform);
+        AddColumnsToGrid();
     }
-
 
     //Add two new columns to the grid: one on the left and one on the right
     void AddColumnsToGrid()
@@ -85,7 +89,6 @@ public class UIBuilder : MonoBehaviour
         lastWidthPosition = nextWidthPosition;
     }
 
-
     public void BuyGridSpace()
     {
         buyGridSpace = false;
@@ -101,5 +104,15 @@ public class UIBuilder : MonoBehaviour
     void Update()
     {
         if (buyGridSpace) BuyGridSpace();
+    }
+
+    public void ChooseMenu()
+    {
+
+    }
+
+    public void SetCurrentPressedGridButton()
+    {
+        gameController.GetComponent<GameController>().CurrentPressedGridButton();
     }
 }
