@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-
+using UnityEngine.Events;
 
 //This class will be used to instantiate and place all the UI:
 //Grid space
@@ -10,6 +10,8 @@ using UnityEngine.UI;
 //Set up all other variable references
 public class UIBuilder : MonoBehaviour
 {
+    public class ObjectEvent : UnityEvent<GameObject> { };
+
     public const float TOP_GRID_LEVEL = 0.4f;
     public const float MIDDLE_GRID_LEVEL = 0.3f;
     public const float LOWER_GRID_LEVEL = 0.2f;
@@ -21,9 +23,14 @@ public class UIBuilder : MonoBehaviour
     public GameObject gameController;
     public GameObject grid; //This object will be the parent of the generated grid spaces
     GameObject gridspace;
-    UnityEngine.Events.UnityAction action = () => {; myOtherMethod(); };
+    //UnityEngine.Events.UnityAction action = () => { SetCurrentPressedGridButton(GameObject obj); };
 
     float lastWidthPosition;
+    //public ObjectEvent objEvent = new ObjectEvent();
+    //public void onButtonClicked()
+    //{
+    //    objEvent.Invoke(new GameObject());
+    //}
 
     public void InstantiateGrid()
     {
@@ -111,8 +118,8 @@ public class UIBuilder : MonoBehaviour
 
     }
 
-    public void SetCurrentPressedGridButton()
-    {
-        gameController.GetComponent<GameController>().CurrentPressedGridButton();
-    }
+    //public void SetCurrentPressedGridButton(GameObject obj)
+    //{
+    //    gameController.GetComponent<GameController>().CurrentPressedGridButton = obj;
+    //}
 }
