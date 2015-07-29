@@ -1,6 +1,4 @@
-# KettlersGame
+# Kettlers
 
-Been working on this game for weeks. Slowly adding bits and pieces each day/week
+Now that we have new Unity UI, a lot of the game interface needs to be redone (yay or :( ?)
 
-Current to do list:
-- [ ] Add kettler factory system
