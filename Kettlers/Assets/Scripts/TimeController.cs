@@ -31,15 +31,23 @@ public class TimeController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        //StartCoroutine(StartClock());
     }
 
     void FixedUpdate()
     {
-        if (tick && Time.time > nextTickTime)
-        {
-            Tick();
-        }
-        if (reset) Reset();
+        //if (tick && Time.time > nextTickTime)
+        //{
+        //    Tick();
+        //}
+        //if (reset) Reset();
+
+    }
+
+    IEnumerator StartClock()
+    {
+        while (!Paused())
+            yield return new WaitForSeconds(timeScale);
     }
 
     public void Reset()
@@ -114,7 +122,7 @@ public class TimeController : MonoBehaviour
         tick = false;
     }
 
-    public bool IsPaused()
+    public bool Paused()
     {
         return !tick;
     }
